@@ -101,7 +101,7 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
                 }`}
               >
                 <HelpCircle className="w-4 h-4" />
-                <span>FAQ</span>
+                <span>{t('nav.faq')}</span>
               </Link>
 
               <LanguageSelector />
