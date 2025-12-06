@@ -64,14 +64,15 @@ export const exportToExcel = (
 
   const allPayments: any[] = [];
   monthlyPayments.forEach((monthData) => {
-    allPayments.push([monthData.month, '', '', '', '', '', '']);
-    allPayments.push(['Member Name', 'Email', 'Phone', 'Receipt Order', 'Amount', 'Status', 'Paid Date']);
+    allPayments.push([monthData.month, '', '', '', '', '', '', '']);
+    allPayments.push(['Member Name', 'Email', 'Phone', 'Address', 'Receipt Order', 'Amount', 'Status', 'Paid Date']);
 
     monthData.payments.forEach((payment) => {
       allPayments.push([
         payment.member_name,
         payment.member_email,
         payment.member_phone || 'N/A',
+        payment.member_address || 'N/A',
         payment.receipt_order || 'N/A',
         `$${payment.amount_due.toFixed(2)}`,
         payment.is_paid ? 'PAID' : 'UNPAID',
@@ -90,6 +91,7 @@ export const exportToExcel = (
     { width: 25 },
     { width: 30 },
     { width: 15 },
+    { width: 30 },
     { width: 15 },
     { width: 12 },
     { width: 12 },
@@ -286,6 +288,7 @@ export const exportToPDF = (
                 <th>Member Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Address</th>
                 <th>Receipt Order</th>
                 <th>Amount</th>
                 <th>Status</th>
@@ -300,6 +303,7 @@ export const exportToPDF = (
                   <td>${payment.member_name}</td>
                   <td>${payment.member_email}</td>
                   <td>${payment.member_phone || 'N/A'}</td>
+                  <td>${payment.member_address || 'N/A'}</td>
                   <td>${payment.receipt_order || 'N/A'}</td>
                   <td>$${payment.amount_due.toFixed(2)}</td>
                   <td>
@@ -380,20 +384,21 @@ PAYMENT DETAILS BY CYCLE
 
     content += `\n${monthData.month}\n`;
     content += `Cycle ${monthData.cycleNumber} - ${monthData.paidCount} of ${monthData.totalCount} paid (${percentage}%)\n`;
-    content += `${'─'.repeat(120)}\n`;
-    content += `${'Member Name'.padEnd(20)} ${'Email'.padEnd(30)} ${'Phone'.padEnd(15)} ${'Order'.padEnd(8)} ${'Amount'.padEnd(12)} ${'Status'.padEnd(10)} ${'Paid Date'.padEnd(15)}\n`;
-    content += `${'─'.repeat(120)}\n`;
+    content += `${'─'.repeat(150)}\n`;
+    content += `${'Member Name'.padEnd(20)} ${'Email'.padEnd(30)} ${'Phone'.padEnd(15)} ${'Address'.padEnd(25)} ${'Order'.padEnd(8)} ${'Amount'.padEnd(12)} ${'Status'.padEnd(10)} ${'Paid Date'.padEnd(15)}\n`;
+    content += `${'─'.repeat(150)}\n`;
 
     monthData.payments.forEach((payment) => {
       const memberName = payment.member_name.padEnd(20).substring(0, 20);
       const email = payment.member_email.padEnd(30).substring(0, 30);
       const phone = (payment.member_phone || 'N/A').padEnd(15).substring(0, 15);
+      const address = (payment.member_address || 'N/A').padEnd(25).substring(0, 25);
       const order = (payment.receipt_order?.toString() || 'N/A').padEnd(8);
       const amount = `$${payment.amount_due.toFixed(2)}`.padEnd(12);
       const status = (payment.is_paid ? 'PAID' : 'UNPAID').padEnd(10);
       const paidDate = (payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : '-').padEnd(15);
 
-      content += `${memberName} ${email} ${phone} ${order} ${amount} ${status} ${paidDate}\n`;
+      content += `${memberName} ${email} ${phone} ${address} ${order} ${amount} ${status} ${paidDate}\n`;
     });
 
     content += '\n';
