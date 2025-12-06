@@ -5,8 +5,9 @@ import { supabase } from '../lib/supabase';
 import { recordPayment, calculateNextPaymentDate } from '../utils/paymentUtils';
 import { useLanguage } from '../contexts/LanguageContext';
 import { generateUpcomingPaymentNotifications } from '../utils/notificationUtils';
-import { Plus, Edit, Trash2, Users, DollarSign, Mail, Phone, MapPin, X, CheckCircle, Calendar, Search, FileText, FileSpreadsheet, Download } from 'lucide-react';
+import { Plus, Edit, Trash2, Users, DollarSign, Mail, Phone, MapPin, X, CheckCircle, Calendar, Search, FileText, FileSpreadsheet, Download, Upload } from 'lucide-react';
 import { exportToPDF, exportToExcel, exportToWord } from '../utils/exportUtils';
+import { parseImportFile, downloadTemplate } from '../utils/importUtils';
 
 interface GroupMember {
   id: string;
@@ -52,8 +53,12 @@ export const Members = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
   const [editingMember, setEditingMember] = useState<GroupMember | null>(null);
   const [error, setError] = useState('');
+  const [importErrors, setImportErrors] = useState<string[]>([]);
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [importing, setImporting] = useState(false);
   const [processingPayment, setProcessingPayment] = useState<string | null>(null);
   const [monthlyPayments, setMonthlyPayments] = useState<any[]>([]);
   const [processingStatusChange, setProcessingStatusChange] = useState(false);
@@ -223,6 +228,110 @@ export const Members = () => {
     setShowModal(false);
     setEditingMember(null);
     setError('');
+  };
+
+  const handleOpenImportModal = () => {
+    setShowImportModal(true);
+    setImportFile(null);
+    setImportErrors([]);
+  };
+
+  const handleCloseImportModal = () => {
+    setShowImportModal(false);
+    setImportFile(null);
+    setImportErrors([]);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const validTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel',
+        'text/csv',
+      ];
+      if (validTypes.includes(file.type) || file.name.endsWith('.csv') || file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+        setImportFile(file);
+        setImportErrors([]);
+      } else {
+        setImportErrors(['Please upload a valid Excel (.xlsx, .xls) or CSV file']);
+        setImportFile(null);
+      }
+    }
+  };
+
+  const handleImportMembers = async () => {
+    if (!importFile || !group) return;
+
+    setImporting(true);
+    setImportErrors([]);
+
+    try {
+      const result = await parseImportFile(importFile);
+
+      if (!result.success) {
+        setImportErrors(result.errors);
+        setImporting(false);
+        return;
+      }
+
+      if (members.length + result.members.length > group.number_of_members) {
+        setImportErrors([
+          `Cannot import ${result.members.length} members. Current: ${members.length}, Group limit: ${group.number_of_members}`,
+        ]);
+        setImporting(false);
+        return;
+      }
+
+      const existingEmails = new Set(members.map(m => m.email.toLowerCase()));
+      const duplicateEmails = result.members.filter(m => existingEmails.has(m.email.toLowerCase()));
+      if (duplicateEmails.length > 0) {
+        setImportErrors([
+          `The following emails already exist in this group: ${duplicateEmails.map(m => m.email).join(', ')}`,
+        ]);
+        setImporting(false);
+        return;
+      }
+
+      const existingOrders = new Set(members.map(m => m.receipt_order));
+      const duplicateOrders = result.members.filter(m => existingOrders.has(m.receipt_order));
+      if (duplicateOrders.length > 0) {
+        setImportErrors([
+          `The following receipt orders already exist: ${duplicateOrders.map(m => m.receipt_order).join(', ')}`,
+        ]);
+        setImporting(false);
+        return;
+      }
+
+      const membersToInsert = result.members.map(member => ({
+        group_id: groupId,
+        full_name: member.full_name,
+        email: member.email,
+        phone: member.phone,
+        address: member.address || null,
+        membership_amount: member.membership_amount,
+        receipt_order: member.receipt_order,
+      }));
+
+      const { error } = await supabase
+        .from('group_members')
+        .insert(membersToInsert);
+
+      if (error) throw error;
+
+      await fetchMembers();
+
+      if (groupId) {
+        await generateUpcomingPaymentNotifications(groupId);
+      }
+
+      alert(`Successfully imported ${result.members.length} members!`);
+      handleCloseImportModal();
+    } catch (err: any) {
+      setImportErrors([err.message || 'Failed to import members']);
+    } finally {
+      setImporting(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -601,18 +710,32 @@ export const Members = () => {
                 </p>
               )}
             </div>
-            <button
-              onClick={() => handleOpenModal()}
-              disabled={group ? members.length >= group.number_of_members : false}
-              className={`inline-flex items-center px-4 py-2 font-medium rounded-lg transition-colors ${
-                group && members.length >= group.number_of_members
-                  ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
-                  : 'bg-primary-600 text-white hover:bg-primary-700'
-              }`}
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              {t('members.addMember')}
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleOpenImportModal}
+                disabled={group ? members.length >= group.number_of_members : false}
+                className={`inline-flex items-center px-4 py-2 font-medium rounded-lg transition-colors ${
+                  group && members.length >= group.number_of_members
+                    ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                    : 'bg-green-600 text-white hover:bg-green-700'
+                }`}
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                Import Members
+              </button>
+              <button
+                onClick={() => handleOpenModal()}
+                disabled={group ? members.length >= group.number_of_members : false}
+                className={`inline-flex items-center px-4 py-2 font-medium rounded-lg transition-colors ${
+                  group && members.length >= group.number_of_members
+                    ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                    : 'bg-primary-600 text-white hover:bg-primary-700'
+                }`}
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                {t('members.addMember')}
+              </button>
+            </div>
           </div>
 
           {members.length > 0 && (
@@ -899,6 +1022,125 @@ export const Members = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showImportModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white">
+              <h2 className="text-2xl font-bold text-slate-900">Import Members</h2>
+              <button
+                onClick={handleCloseImportModal}
+                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6">
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                <h3 className="font-bold text-blue-900 mb-2 flex items-center">
+                  <Download className="w-5 h-5 mr-2" />
+                  Download Template
+                </h3>
+                <p className="text-sm text-blue-800 mb-3">
+                  Download our Excel template to ensure your file has the correct format.
+                </p>
+                <button
+                  onClick={downloadTemplate}
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                >
+                  <FileSpreadsheet className="w-4 h-4 mr-2" />
+                  Download Template
+                </button>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-slate-900 mb-2">Required Columns:</h3>
+                <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                  <li><strong>full_name</strong> - Member's full name</li>
+                  <li><strong>email</strong> - Member's email address</li>
+                  <li><strong>phone</strong> - Member's phone number</li>
+                  <li><strong>membership_amount</strong> - Monthly contribution amount</li>
+                  <li><strong>receipt_order</strong> - Position in payout order (must be unique)</li>
+                  <li><strong>address</strong> - Member's address (optional)</li>
+                </ul>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Upload Excel or CSV File
+                </label>
+                <input
+                  type="file"
+                  accept=".xlsx,.xls,.csv"
+                  onChange={handleFileChange}
+                  className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+                />
+              </div>
+
+              {importFile && (
+                <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+                  <p className="text-green-800 font-medium flex items-center">
+                    <CheckCircle className="w-5 h-5 mr-2" />
+                    File selected: {importFile.name}
+                  </p>
+                </div>
+              )}
+
+              {importErrors.length > 0 && (
+                <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+                  <h4 className="font-bold text-red-900 mb-2">Import Errors:</h4>
+                  <ul className="text-sm text-red-800 space-y-1 list-disc list-inside">
+                    {importErrors.map((error, index) => (
+                      <li key={index}>{error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {group && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <p className="text-sm text-slate-600">
+                    <strong>Current members:</strong> {members.length} / {group.number_of_members}
+                  </p>
+                  <p className="text-sm text-slate-600 mt-1">
+                    <strong>Available slots:</strong> {group.number_of_members - members.length}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={handleCloseImportModal}
+                  disabled={importing}
+                  className="flex-1 py-3 px-4 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleImportMembers}
+                  disabled={!importFile || importing}
+                  className="flex-1 py-3 px-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  {importing ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Importing...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-4 h-4 mr-2" />
+                      Import Members
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
