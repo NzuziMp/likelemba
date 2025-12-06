@@ -1,6 +1,6 @@
 import { ReactNode, useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Users, DollarSign, LogOut, User as UserIcon, Settings, ChevronDown, CheckSquare } from 'lucide-react';
+import { Home, Users, DollarSign, LogOut, User as UserIcon, Settings, ChevronDown, CheckSquare, HelpCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { LanguageSelector } from '../LanguageSelector';
@@ -91,6 +91,17 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
               >
                 <CheckSquare className="w-4 h-4" />
                 <span>Payments</span>
+              </Link>
+              <Link
+                to="/faq"
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                  isActive('/faq')
+                    ? 'bg-primary-50 text-primary-700'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+              >
+                <HelpCircle className="w-4 h-4" />
+                <span>FAQ</span>
               </Link>
 
               <LanguageSelector />
