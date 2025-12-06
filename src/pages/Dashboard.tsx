@@ -7,6 +7,7 @@ import { supabase } from '../lib/supabase';
 import { Users, DollarSign, Calendar, Plus, TrendingUp, Edit2, Trash2, X, Search } from 'lucide-react';
 import { ShareGroupLink } from '../components/ShareGroupLink';
 import { PaymentDueNotifications } from '../components/PaymentDueNotifications';
+import { ServiceFeePayment } from '../components/ServiceFeePayment';
 
 interface LikeLembaGroup {
   id: string;
@@ -17,6 +18,9 @@ interface LikeLembaGroup {
   start_date: string;
   payment_frequency?: string;
   payment_method?: string;
+  service_fee?: number;
+  service_fee_paid?: boolean;
+  service_fee_deadline?: string;
 }
 
 export const Dashboard = () => {
@@ -44,7 +48,7 @@ export const Dashboard = () => {
 
       const { data: groupsData, error } = await supabase
         .from('likelemba_groups')
-        .select('*')
+        .select('id, name, number_of_members, monthly_amount, status, start_date, payment_frequency, payment_method, service_fee, service_fee_paid, service_fee_deadline, created_at')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -244,9 +248,9 @@ export const Dashboard = () => {
                     .map((group) => (
                 <div
                   key={group.id}
-                  className="border-2 border-slate-200 rounded-xl p-6 hover:border-primary-500 hover:shadow-md transition-all"
+                  className="border-2 border-slate-200 rounded-xl p-6 hover:border-primary-500 hover:shadow-md transition-all space-y-4"
                 >
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between">
                     <h3 className="text-lg font-bold text-slate-900">{group.name}</h3>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium capitalize ${
@@ -262,21 +266,35 @@ export const Dashboard = () => {
                       {group.status}
                     </span>
                   </div>
+
+                  {group.service_fee && (
+                    <ServiceFeePayment
+                      groupId={group.id}
+                      groupName={group.name}
+                      serviceFee={group.service_fee}
+                      servicePaid={group.service_fee_paid || false}
+                      deadline={group.service_fee_deadline || null}
+                      onPaymentConfirmed={fetchGroups}
+                    />
+                  )}
+
+                  <div>
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-center text-slate-600">
-                      <Users className="w-4 h-4 mr-2" />
-                      <span>{group.number_of_members} members</span>
-                    </div>
-                    <div className="flex items-center text-slate-600">
-                      <DollarSign className="w-4 h-4 mr-2" />
-                      <span>${group.monthly_amount.toFixed(2)} per member</span>
-                    </div>
-                    <div className="flex items-center text-slate-600">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      <span>Started {new Date(group.start_date).toLocaleDateString()}</span>
+                      <div className="flex items-center text-slate-600">
+                        <Users className="w-4 h-4 mr-2" />
+                        <span>{group.number_of_members} members</span>
+                      </div>
+                      <div className="flex items-center text-slate-600">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        <span>${group.monthly_amount.toFixed(2)} per member</span>
+                      </div>
+                      <div className="flex items-center text-slate-600">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span>Started {new Date(group.start_date).toLocaleDateString()}</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="mt-4 space-y-2">
+                  <div className="space-y-2">
                     <div className="grid grid-cols-3 gap-2">
                       <Link
                         to={`/members?group=${group.id}`}
