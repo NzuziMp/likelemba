@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
+import { AdminProvider } from './contexts/AdminContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
 
 import { Home } from './pages/Home';
 import { About } from './pages/About';
@@ -17,13 +19,19 @@ import { SharedGroup } from './pages/SharedGroup';
 import { Profile } from './pages/Profile';
 import { PaymentTracking } from './pages/PaymentTracking';
 import PayoutHistory from './pages/PayoutHistory';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagement from './pages/admin/UserManagement';
+import GroupManagement from './pages/admin/GroupManagement';
+import MessageManagement from './pages/admin/MessageManagement';
+import ActivityLog from './pages/admin/ActivityLog';
 
 function App() {
   return (
     <Router>
       <LanguageProvider>
         <AuthProvider>
-          <Routes>
+          <AdminProvider>
+            <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -82,8 +90,50 @@ function App() {
             }
           />
 
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedAdminRoute>
+                <AdminDashboard />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedAdminRoute>
+                <UserManagement />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/groups"
+            element={
+              <ProtectedAdminRoute>
+                <GroupManagement />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/messages"
+            element={
+              <ProtectedAdminRoute>
+                <MessageManagement />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/activity"
+            element={
+              <ProtectedAdminRoute>
+                <ActivityLog />
+              </ProtectedAdminRoute>
+            }
+          />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+          </AdminProvider>
         </AuthProvider>
       </LanguageProvider>
     </Router>
