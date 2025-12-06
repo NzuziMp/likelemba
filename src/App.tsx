@@ -16,6 +16,7 @@ import { Members } from './pages/Members';
 import { SharedGroup } from './pages/SharedGroup';
 import { Profile } from './pages/Profile';
 import { PaymentTracking } from './pages/PaymentTracking';
+import PayoutHistory from './pages/PayoutHistory';
 
 function App() {
   return (
@@ -69,6 +70,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PaymentTracking />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payout-history"
+            element={
+              <ProtectedRoute>
+                <PayoutHistory />
               </ProtectedRoute>
             }
           />

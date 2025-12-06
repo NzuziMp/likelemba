@@ -93,6 +93,17 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
                 <span>Payments</span>
               </Link>
               <Link
+                to="/payout-history"
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
+                  isActive('/payout-history')
+                    ? 'bg-primary-50 text-primary-700'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+              >
+                <DollarSign className="w-4 h-4" />
+                <span>{t('nav.payoutHistory')}</span>
+              </Link>
+              <Link
                 to="/faq"
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
                   isActive('/faq')
