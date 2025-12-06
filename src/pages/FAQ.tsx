@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { PublicLayout } from '../components/Layout/PublicLayout';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { MessageCircle, Send, ThumbsUp, ThumbsDown, Search, X, Loader, BookOpen, HelpCircle } from 'lucide-react';
 
 interface FAQ {
@@ -21,6 +22,7 @@ interface ChatMessage {
 
 export const FAQ = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [filteredFaqs, setFilteredFaqs] = useState<FAQ[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -109,7 +111,7 @@ export const FAQ = () => {
     if (!userQuestion.trim() || isAsking) return;
 
     if (!user) {
-      alert('Please log in to ask questions');
+      alert(t('faq.loginPrompt'));
       return;
     }
 
@@ -210,10 +212,10 @@ export const FAQ = () => {
               <HelpCircle className="w-8 h-8 text-primary-600" />
             </div>
             <h1 className="text-4xl font-bold text-slate-900 mb-4">
-              Frequently Asked Questions
+              {t('faq.title')}
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Get instant answers to your questions about Likelemba
+              {t('faq.subtitle')}
             </p>
           </div>
 
@@ -222,14 +224,14 @@ export const FAQ = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <MessageCircle className="w-6 h-6 text-white" />
-                  <h2 className="text-2xl font-bold text-white">AI Assistant</h2>
+                  <h2 className="text-2xl font-bold text-white">{t('faq.aiAssistant')}</h2>
                 </div>
                 {user && chatMessages.length > 0 && (
                   <button
                     onClick={() => setShowChat(!showChat)}
                     className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
                   >
-                    {showChat ? 'Hide Chat' : 'Show Chat History'}
+                    {showChat ? t('faq.hideChat') : t('faq.showChat')}
                   </button>
                 )}
               </div>
@@ -241,7 +243,7 @@ export const FAQ = () => {
                     value={userQuestion}
                     onChange={(e) => setUserQuestion(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAskQuestion()}
-                    placeholder="Ask me anything about Likelemba..."
+                    placeholder={t('faq.askPlaceholder')}
                     className="w-full px-6 py-4 rounded-xl border-0 focus:ring-2 focus:ring-white text-slate-900 placeholder-slate-400"
                     disabled={isAsking}
                   />
@@ -256,13 +258,13 @@ export const FAQ = () => {
                   ) : (
                     <Send className="w-5 h-5" />
                   )}
-                  <span>{isAsking ? 'Asking...' : 'Ask'}</span>
+                  <span>{isAsking ? t('faq.asking') : t('faq.ask')}</span>
                 </button>
               </div>
 
               {!user && (
                 <p className="text-white/80 text-sm mt-3">
-                  Log in to save your conversation history and get personalized answers
+                  {t('faq.loginPrompt')}
                 </p>
               )}
             </div>
@@ -281,7 +283,7 @@ export const FAQ = () => {
                       {message.isLoading ? (
                         <div className="flex items-center space-x-2 text-slate-500">
                           <Loader className="w-4 h-4 animate-spin" />
-                          <span className="text-sm">Thinking...</span>
+                          <span className="text-sm">{t('faq.thinking')}</span>
                         </div>
                       ) : (
                         <div>
@@ -290,7 +292,7 @@ export const FAQ = () => {
                           </div>
                           {!message.isLoading && message.id && !message.id.startsWith('temp-') && (
                             <div className="flex items-center space-x-2 mt-2 ml-2">
-                              <span className="text-xs text-slate-500">Was this helpful?</span>
+                              <span className="text-xs text-slate-500">{t('faq.wasHelpful')}</span>
                               <button
                                 onClick={() => handleFeedback(message.id, true)}
                                 className={`p-1 rounded transition-colors ${
@@ -327,7 +329,7 @@ export const FAQ = () => {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <BookOpen className="w-6 h-6 text-primary-600" />
-                <h2 className="text-2xl font-bold text-slate-900">Browse FAQs</h2>
+                <h2 className="text-2xl font-bold text-slate-900">{t('faq.browseFAQs')}</h2>
               </div>
             </div>
 
@@ -338,7 +340,7 @@ export const FAQ = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search FAQs..."
+                  placeholder={t('faq.searchPlaceholder')}
                   className="w-full pl-12 pr-10 py-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 />
                 {searchQuery && (
@@ -360,7 +362,7 @@ export const FAQ = () => {
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  All
+                  {t('faq.all')}
                 </button>
                 {categories.map((category) => (
                   <button
@@ -381,7 +383,7 @@ export const FAQ = () => {
             {filteredFaqs.length === 0 ? (
               <div className="text-center py-12">
                 <Search className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-600">No FAQs found matching your search</p>
+                <p className="text-slate-600">{t('faq.noResults')}</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -411,13 +413,13 @@ export const FAQ = () => {
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-slate-600 mb-4">Still have questions?</p>
+            <p className="text-slate-600 mb-4">{t('faq.stillQuestions')}</p>
             <a
               href="/contact"
               className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-colors"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Contact Support
+              {t('faq.contactSupport')}
             </a>
           </div>
         </div>

@@ -316,6 +316,24 @@ const translations: Record<Language, Record<string, string>> = {
 
     'footer.copyright': 'All rights reserved.',
     'footer.tagline': 'Building communities through collective savings',
+
+    'faq.title': 'Frequently Asked Questions',
+    'faq.subtitle': 'Get instant answers to your questions about Likelemba',
+    'faq.aiAssistant': 'AI Assistant',
+    'faq.askPlaceholder': 'Ask me anything about Likelemba...',
+    'faq.ask': 'Ask',
+    'faq.asking': 'Asking...',
+    'faq.loginPrompt': 'Log in to save your conversation history and get personalized answers',
+    'faq.showChat': 'Show Chat History',
+    'faq.hideChat': 'Hide Chat',
+    'faq.thinking': 'Thinking...',
+    'faq.wasHelpful': 'Was this helpful?',
+    'faq.browseFAQs': 'Browse FAQs',
+    'faq.searchPlaceholder': 'Search FAQs...',
+    'faq.all': 'All',
+    'faq.noResults': 'No FAQs found matching your search',
+    'faq.stillQuestions': 'Still have questions?',
+    'faq.contactSupport': 'Contact Support',
   },
 
   fr: {
@@ -615,6 +633,24 @@ const translations: Record<Language, Record<string, string>> = {
 
     'footer.copyright': 'Tous droits réservés.',
     'footer.tagline': 'Construire des communautés grâce à l\'épargne collective',
+
+    'faq.title': 'Questions Fréquemment Posées',
+    'faq.subtitle': 'Obtenez des réponses instantanées à vos questions sur Likelemba',
+    'faq.aiAssistant': 'Assistant IA',
+    'faq.askPlaceholder': 'Demandez-moi n\'importe quoi sur Likelemba...',
+    'faq.ask': 'Demander',
+    'faq.asking': 'En cours...',
+    'faq.loginPrompt': 'Connectez-vous pour enregistrer l\'historique de vos conversations et obtenir des réponses personnalisées',
+    'faq.showChat': 'Afficher l\'historique',
+    'faq.hideChat': 'Masquer le chat',
+    'faq.thinking': 'Réflexion...',
+    'faq.wasHelpful': 'Cela a-t-il été utile ?',
+    'faq.browseFAQs': 'Parcourir les FAQ',
+    'faq.searchPlaceholder': 'Rechercher dans les FAQ...',
+    'faq.all': 'Tout',
+    'faq.noResults': 'Aucune FAQ correspondant à votre recherche',
+    'faq.stillQuestions': 'Vous avez encore des questions ?',
+    'faq.contactSupport': 'Contacter le support',
   },
 
   ar: {
@@ -914,6 +950,24 @@ const translations: Record<Language, Record<string, string>> = {
 
     'footer.copyright': 'جميع الحقوق محفوظة.',
     'footer.tagline': 'بناء المجتمعات من خلال الادخار الجماعي',
+
+    'faq.title': 'الأسئلة الشائعة',
+    'faq.subtitle': 'احصل على إجابات فورية لأسئلتك حول ليكيلمبا',
+    'faq.aiAssistant': 'مساعد الذكاء الاصطناعي',
+    'faq.askPlaceholder': 'اسألني أي شيء عن ليكيلمبا...',
+    'faq.ask': 'اسأل',
+    'faq.asking': 'جارٍ السؤال...',
+    'faq.loginPrompt': 'قم بتسجيل الدخول لحفظ سجل محادثتك والحصول على إجابات مخصصة',
+    'faq.showChat': 'عرض سجل المحادثة',
+    'faq.hideChat': 'إخفاء المحادثة',
+    'faq.thinking': 'جارٍ التفكير...',
+    'faq.wasHelpful': 'هل كان هذا مفيدًا؟',
+    'faq.browseFAQs': 'تصفح الأسئلة الشائعة',
+    'faq.searchPlaceholder': 'البحث في الأسئلة الشائعة...',
+    'faq.all': 'الكل',
+    'faq.noResults': 'لم يتم العثور على أسئلة شائعة مطابقة لبحثك',
+    'faq.stillQuestions': 'لا تزال لديك أسئلة؟',
+    'faq.contactSupport': 'اتصل بالدعم',
   },
 
   pt: {
@@ -1213,6 +1267,24 @@ const translations: Record<Language, Record<string, string>> = {
 
     'footer.copyright': 'Todos os direitos reservados.',
     'footer.tagline': 'Construindo comunidades através da poupança coletiva',
+
+    'faq.title': 'Perguntas Frequentes',
+    'faq.subtitle': 'Obtenha respostas instantâneas às suas perguntas sobre Likelemba',
+    'faq.aiAssistant': 'Assistente IA',
+    'faq.askPlaceholder': 'Pergunte-me qualquer coisa sobre Likelemba...',
+    'faq.ask': 'Perguntar',
+    'faq.asking': 'Perguntando...',
+    'faq.loginPrompt': 'Faça login para salvar seu histórico de conversas e obter respostas personalizadas',
+    'faq.showChat': 'Mostrar Histórico',
+    'faq.hideChat': 'Ocultar Chat',
+    'faq.thinking': 'Pensando...',
+    'faq.wasHelpful': 'Isso foi útil?',
+    'faq.browseFAQs': 'Navegar pelas FAQs',
+    'faq.searchPlaceholder': 'Pesquisar FAQs...',
+    'faq.all': 'Todos',
+    'faq.noResults': 'Nenhuma FAQ correspondente à sua pesquisa',
+    'faq.stillQuestions': 'Ainda tem perguntas?',
+    'faq.contactSupport': 'Contatar Suporte',
   },
 };
 
