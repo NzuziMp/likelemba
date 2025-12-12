@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Likelemba Database Connection Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .test-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #ccc;
+        }
+        .test-item.loading {
+            background: #fff9e6;
+            border-color: #ffc107;
+        }
+        .test-item.success {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        .test-item.error {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        .test-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .test-result {
+            font-size: 14px;
+            color: #666;
+        }
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1976D2;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .error-details {
+            background: #f5f5f5;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Likelemba Database Connection Test</h1>
+        <p>This tool will test your connection to the Supabase database and verify all required tables exist.</p>
+
+        <button onclick="runTests()" id="testBtn">Run Tests</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const supabaseUrl = 'https://qbdhxwmzljwrwvifxnqt.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiZGh4d216bGp3cnd2aWZ4bnF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ0NTQ5NDksImV4cCI6MjA4MDAzMDk0OX0.TZ8dtAjXaoGIn-cL3eqEFccbEo4tHjYZRgpAl_rn8bQ';
+
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function runTests() {
+            const resultsDiv = document.getElementById('results');
+            const testBtn = document.getElementById('testBtn');
+            resultsDiv.innerHTML = '';
+            testBtn.disabled = true;
+
+            const tests = [
+                { name: 'Connection to Supabase', fn: testConnection },
+                { name: 'Profiles table exists', fn: () => testTable('profiles') },
+                { name: 'Likelemba groups table exists', fn: () => testTable('likelemba_groups') },
+                { name: 'Group members table exists', fn: () => testTable('group_members') },
+                { name: 'Payment schedules table exists', fn: () => testTable('payment_schedules') },
+                { name: 'Profiles table has required columns', fn: testProfileColumns },
+                { name: 'Authentication system', fn: testAuth },
+            ];
+
+            for (const test of tests) {
+                await runTest(test.name, test.fn, resultsDiv);
+            }
+
+            testBtn.disabled = false;
+        }
+
+        async function runTest(name, testFn, container) {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test-item loading';
+            testDiv.innerHTML = `
+                <div class="test-name">${name}</div>
+                <div class="test-result">Testing...</div>
+            `;
+            container.appendChild(testDiv);
+
+            try {
+                const result = await testFn();
+                testDiv.className = 'test-item success';
+                testDiv.innerHTML = `
+                    <div class="test-name">✓ ${name}</div>
+                    <div class="test-result">${result}</div>
+                `;
+            } catch (error) {
+                testDiv.className = 'test-item error';
+                testDiv.innerHTML = `
+                    <div class="test-name">✗ ${name}</div>
+                    <div class="test-result">Failed: ${error.message}</div>
+                    <div class="error-details">${JSON.stringify(error, null, 2)}</div>
+                `;
+            }
+        }
+
+        async function testConnection() {
+            const { data, error } = await supabase.from('profiles').select('count').limit(1);
+            if (error && error.code !== 'PGRST116') {
+                throw error;
+            }
+            return 'Successfully connected to Supabase';
+        }
+
+        async function testTable(tableName) {
+            const { data, error } = await supabase.from(tableName).select('*').limit(1);
+            if (error) {
+                if (error.message.includes('does not exist')) {
+                    throw new Error(`Table "${tableName}" does not exist. Run migrations!`);
+                }
+                throw error;
+            }
+            return `Table exists and is accessible`;
+        }
+
+        async function testProfileColumns() {
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('id, full_name, phone, address, avatar_url, is_maman_likelemba')
+                .limit(1);
+
+            if (error) {
+                if (error.message.includes('column') && error.message.includes('does not exist')) {
+                    throw new Error('Missing columns in profiles table. Run all migrations!');
+                }
+                throw error;
+            }
+            return 'All required columns exist';
+        }
+
+        async function testAuth() {
+            const { data, error } = await supabase.auth.getSession();
+            if (error) throw error;
+
+            if (data.session) {
+                return `Authenticated as: ${data.session.user.email}`;
+            } else {
+                return 'Not currently logged in (this is OK for testing)';
+            }
+        }
+    </script>
+</body>
+</html>
