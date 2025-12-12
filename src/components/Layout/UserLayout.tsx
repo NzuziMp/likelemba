@@ -1,6 +1,6 @@
 import { ReactNode, useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Users, DollarSign, LogOut, User as UserIcon, Settings, ChevronDown, CheckSquare, HelpCircle } from 'lucide-react';
+import { Home, Users, DollarSign, LogOut, User as UserIcon, Settings, ChevronDown, CheckSquare, HelpCircle, Menu, X } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { LanguageSelector } from '../LanguageSelector';
@@ -18,9 +18,12 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
   const { signOut, profile } = useAuth();
   const { t } = useLanguage();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => location.pathname === path;
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,7 +51,7 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
               <span className="text-xl font-bold text-slate-900 dark:text-white">Likelemba</span>
             </Link>
 
-            <div className="flex items-center space-x-1">
+            <div className="hidden lg:flex items-center space-x-1">
               <Link
                 to="/dashboard"
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
@@ -168,7 +171,141 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
                 )}
               </div>
             </div>
+
+            <div className="flex lg:hidden items-center space-x-2">
+              <ThemeToggle />
+              <LanguageSelector />
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
+
+          {isMobileMenuOpen && (
+            <div className="lg:hidden border-t border-slate-200 dark:border-slate-700 py-4">
+              <div className="flex flex-col space-y-2">
+                {profile && (
+                  <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700 rounded-lg mb-2">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-secondary-600 flex items-center justify-center overflow-hidden">
+                        {profile.avatar_url ? (
+                          <img
+                            src={profile.avatar_url}
+                            alt="Profile"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <UserIcon className="w-6 h-6 text-white" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white">{profile.full_name}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{profile.email}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <Link
+                  to="/dashboard"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/dashboard')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <Home className="w-5 h-5" />
+                  <span>{t('nav.dashboard')}</span>
+                </Link>
+                <Link
+                  to="/likelemba"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/likelemba')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <DollarSign className="w-5 h-5" />
+                  <span>{t('nav.likelemba')}</span>
+                </Link>
+                <Link
+                  to="/members"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/members')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <Users className="w-5 h-5" />
+                  <span>{t('nav.members')}</span>
+                </Link>
+                <Link
+                  to="/payment-tracking"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/payment-tracking')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <CheckSquare className="w-5 h-5" />
+                  <span>Payments</span>
+                </Link>
+                <Link
+                  to="/payout-history"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/payout-history')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <DollarSign className="w-5 h-5" />
+                  <span>{t('nav.payoutHistory')}</span>
+                </Link>
+                <Link
+                  to="/faq"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/faq')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <HelpCircle className="w-5 h-5" />
+                  <span>{t('nav.faq')}</span>
+                </Link>
+
+                <div className="pt-2 mt-2 border-t border-slate-200 dark:border-slate-700">
+                  <Link
+                    to="/profile"
+                    onClick={closeMobileMenu}
+                    className="flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700 transition-colors"
+                  >
+                    <Settings className="w-5 h-5" />
+                    <span>Mon Profil</span>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      closeMobileMenu();
+                      handleLogout();
+                    }}
+                    className="w-full flex items-center space-x-2 px-4 py-3 rounded-lg font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 transition-colors"
+                  >
+                    <LogOut className="w-5 h-5" />
+                    <span>{t('nav.logout')}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 

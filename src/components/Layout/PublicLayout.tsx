@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Info, Mail, LogIn, UserPlus, HelpCircle } from 'lucide-react';
+import { Home, Info, Mail, LogIn, UserPlus, HelpCircle, Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { LanguageSelector } from '../LanguageSelector';
 import { ThemeToggle } from '../ThemeToggle';
@@ -14,8 +14,11 @@ interface PublicLayoutProps {
 export const PublicLayout = ({ children }: PublicLayoutProps) => {
   const location = useLocation();
   const { t } = useLanguage();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -93,7 +96,94 @@ export const PublicLayout = ({ children }: PublicLayoutProps) => {
               <ThemeToggle />
               <LanguageSelector />
             </div>
+
+            <div className="flex md:hidden items-center space-x-2">
+              <ThemeToggle />
+              <LanguageSelector />
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700 transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
+
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-slate-200 dark:border-slate-700 py-4">
+              <div className="flex flex-col space-y-2">
+                <Link
+                  to="/"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <Home className="w-5 h-5" />
+                  <span>{t('nav.home')}</span>
+                </Link>
+                <Link
+                  to="/about"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/about')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <Info className="w-5 h-5" />
+                  <span>{t('nav.about')}</span>
+                </Link>
+                <Link
+                  to="/faq"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/faq')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <HelpCircle className="w-5 h-5" />
+                  <span>{t('nav.faq')}</span>
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/contact')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <Mail className="w-5 h-5" />
+                  <span>{t('nav.contact')}</span>
+                </Link>
+                <Link
+                  to="/login"
+                  onClick={closeMobileMenu}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+                    isActive('/login')
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
+                  }`}
+                >
+                  <LogIn className="w-5 h-5" />
+                  <span>{t('nav.login')}</span>
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={closeMobileMenu}
+                  className="flex items-center space-x-2 px-4 py-3 rounded-lg font-medium bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 transition-colors"
+                >
+                  <UserPlus className="w-5 h-5" />
+                  <span>{t('nav.register')}</span>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
