@@ -44,9 +44,7 @@ export const UserLayout = ({ children }: UserLayoutProps) => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link to="/dashboard" className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center shadow-md">
-                <span className="text-white font-bold text-lg">L</span>
-              </div>
+              <img src="/fichier_7 copy copy.png" alt="Likelemba" className="w-10 h-10 object-contain" />
               <span className="text-xl font-bold text-slate-900 dark:text-white">Likelemba</span>
             </Link>
 
