@@ -32,7 +32,7 @@ export const About = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-8">
               <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-white" />
               </div>
@@ -42,7 +42,7 @@ export const About = () => {
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl p-8">
               <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
                 <Award className="w-6 h-6 text-white" />
               </div>
