@@ -52,7 +52,7 @@ export const Home = () => {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center mb-6">
                   <CircleDollarSign className="w-7 h-7 text-white" />
                 </div>
@@ -62,7 +62,7 @@ export const Home = () => {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
                   <Users className="w-7 h-7 text-white" />
                 </div>
@@ -72,7 +72,7 @@ export const Home = () => {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-violet-50 to-purple-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="w-14 h-14 bg-violet-600 rounded-xl flex items-center justify-center mb-6">
                   <Shield className="w-7 h-7 text-white" />
                 </div>
