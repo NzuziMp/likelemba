@@ -107,7 +107,7 @@ export const SharedGroup = () => {
       <PublicLayout>
         <div className="container mx-auto px-4 py-12">
           <div className="flex items-center justify-center">
-            <div className="text-lg text-slate-600">{t('common.loading')}</div>
+            <div className="text-lg text-slate-600 dark:text-slate-300">{t('common.loading')}</div>
           </div>
         </div>
       </PublicLayout>
@@ -142,7 +142,7 @@ export const SharedGroup = () => {
     <PublicLayout>
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden">
             <div className="bg-gradient-to-r from-primary-600 to-secondary-600 px-8 py-12 text-white">
               <h1 className="text-3xl font-bold mb-4">{groupData.group_name}</h1>
               <div className="grid md:grid-cols-3 gap-6">
@@ -171,7 +171,7 @@ export const SharedGroup = () => {
             </div>
 
             <div className="p-8">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                 {t('shared.paymentsTitle')}
               </h2>
 
@@ -179,7 +179,7 @@ export const SharedGroup = () => {
                 {groupData.members.map((member) => (
                   <div
                     key={member.member_id}
-                    className="border border-slate-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                    className="border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:shadow-md transition-shadow"
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
@@ -187,9 +187,9 @@ export const SharedGroup = () => {
                           <span className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-semibold">
                             {t('members.position')} #{member.receipt_order}
                           </span>
-                          <h3 className="text-xl font-bold text-slate-900">{member.member_name}</h3>
+                          <h3 className="text-xl font-bold text-slate-900 dark:text-white">{member.member_name}</h3>
                         </div>
-                        <div className="space-y-1 text-slate-600">
+                        <div className="space-y-1 text-slate-600 dark:text-slate-300">
                           <p className="flex items-center space-x-2">
                             <span className="text-sm">📧</span>
                             <span>{member.member_email}</span>
@@ -204,8 +204,8 @@ export const SharedGroup = () => {
                       </div>
                     </div>
 
-                    <div className="border-t border-slate-200 pt-4">
-                      <h4 className="font-semibold text-slate-900 mb-3">
+                    <div className="border-t border-slate-200 dark:border-slate-700 pt-4">
+                      <h4 className="font-semibold text-slate-900 dark:text-white mb-3">
                         {t('members.paid')} ({member.payments.length})
                       </h4>
                       {member.payments.length > 0 ? (
@@ -218,10 +218,10 @@ export const SharedGroup = () => {
                               <div className="flex items-center space-x-3">
                                 <CheckCircle2 className="w-5 h-5 text-primary-600" />
                                 <div>
-                                  <p className="font-medium text-slate-900">
+                                  <p className="font-medium text-slate-900 dark:text-white">
                                     {t('members.cycle')} {payment.cycle_number}
                                   </p>
-                                  <p className="text-sm text-slate-600">
+                                  <p className="text-sm text-slate-600 dark:text-slate-300">
                                     {payment.payment_date && formatDate(payment.payment_date)}
                                   </p>
                                 </div>
@@ -235,7 +235,7 @@ export const SharedGroup = () => {
                           ))}
                         </div>
                       ) : (
-                        <div className="flex items-center space-x-2 text-slate-500 bg-slate-50 rounded-lg p-3">
+                        <div className="flex items-center space-x-2 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 rounded-lg p-3">
                           <XCircle className="w-5 h-5" />
                           <span>{t('shared.noPayments')}</span>
                         </div>
@@ -247,7 +247,7 @@ export const SharedGroup = () => {
             </div>
           </div>
 
-          <div className="mt-8 text-center text-slate-600">
+          <div className="mt-8 text-center text-slate-600 dark:text-slate-300">
             <p className="text-sm">
               {t('shared.sharedBy')}
             </p>

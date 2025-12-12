@@ -123,15 +123,15 @@ export default function MessageManagement() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{t('admin.messages.title')}</h1>
-          <p className="mt-2 text-slate-600">{t('admin.messages.subtitle')}</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t('admin.messages.title')}</h1>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">{t('admin.messages.subtitle')}</p>
         </div>
 
         <div className="flex gap-4">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="all">{t('admin.messages.allMessages')}</option>
             <option value="new">{t('admin.messages.new')}</option>
@@ -165,14 +165,14 @@ export default function MessageManagement() {
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center space-x-2">
                       <MessageSquare className="w-5 h-5 text-primary-600" />
-                      <h3 className="font-semibold text-slate-900">{message.name}</h3>
+                      <h3 className="font-semibold text-slate-900 dark:text-white">{message.name}</h3>
                     </div>
                     <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(message.status)}`}>
                       {t(`admin.messages.${message.status}`)}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-600 mb-2 line-clamp-2">{message.message}</p>
-                  <div className="flex items-center justify-between text-xs text-slate-500">
+                  <p className="text-sm text-slate-600 dark:text-slate-300 mb-2 line-clamp-2">{message.message}</p>
+                  <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>{new Date(message.created_at).toLocaleDateString()}</span>
                     <span className="flex items-center">
                       <Mail className="w-3 h-3 mr-1" />
@@ -183,19 +183,19 @@ export default function MessageManagement() {
               ))}
 
               {filteredMessages.length === 0 && (
-                <div className="text-center py-12 bg-white rounded-lg">
+                <div className="text-center py-12 bg-white dark:bg-slate-800 rounded-lg">
                   <MessageSquare className="mx-auto h-12 w-12 text-slate-400" />
-                  <h3 className="mt-2 text-sm font-medium text-slate-900">{t('admin.messages.noMessages')}</h3>
+                  <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">{t('admin.messages.noMessages')}</h3>
                 </div>
               )}
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6 sticky top-8">
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 sticky top-8">
               {selectedMessage ? (
                 <div className="space-y-4">
                   <div>
-                    <h2 className="text-xl font-semibold text-slate-900 mb-2">{selectedMessage.name}</h2>
-                    <div className="space-y-2 text-sm text-slate-600">
+                    <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{selectedMessage.name}</h2>
+                    <div className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
                       <div className="flex items-center">
                         <Mail className="w-4 h-4 mr-2" />
                         {selectedMessage.email}
@@ -213,30 +213,30 @@ export default function MessageManagement() {
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-200">
-                    <h3 className="font-medium text-slate-900 mb-2">{t('admin.messages.message')}</h3>
-                    <p className="text-slate-700 whitespace-pre-wrap">{selectedMessage.message}</p>
+                  <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <h3 className="font-medium text-slate-900 dark:text-white mb-2">{t('admin.messages.message')}</h3>
+                    <p className="text-slate-700 dark:text-slate-200 whitespace-pre-wrap">{selectedMessage.message}</p>
                   </div>
 
                   {selectedMessage.response && (
-                    <div className="pt-4 border-t border-slate-200">
-                      <h3 className="font-medium text-slate-900 mb-2">{t('admin.messages.response')}</h3>
-                      <p className="text-slate-700 whitespace-pre-wrap">{selectedMessage.response}</p>
-                      <p className="text-xs text-slate-500 mt-2">
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                      <h3 className="font-medium text-slate-900 dark:text-white mb-2">{t('admin.messages.response')}</h3>
+                      <p className="text-slate-700 dark:text-slate-200 whitespace-pre-wrap">{selectedMessage.response}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                         {t('admin.messages.respondedAt')}: {new Date(selectedMessage.responded_at).toLocaleString()}
                       </p>
                     </div>
                   )}
 
                   {selectedMessage.status !== 'replied' && (
-                    <div className="pt-4 border-t border-slate-200">
-                      <h3 className="font-medium text-slate-900 mb-2">{t('admin.messages.writeResponse')}</h3>
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                      <h3 className="font-medium text-slate-900 dark:text-white mb-2">{t('admin.messages.writeResponse')}</h3>
                       <textarea
                         value={responseText}
                         onChange={(e) => setResponseText(e.target.value)}
                         placeholder={t('admin.messages.responsePlaceholder')}
                         rows={6}
-                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                       <button
                         onClick={respondToMessage}
@@ -252,7 +252,7 @@ export default function MessageManagement() {
               ) : (
                 <div className="text-center py-12">
                   <MessageSquare className="mx-auto h-12 w-12 text-slate-400" />
-                  <p className="mt-2 text-sm text-slate-500">{t('admin.messages.selectMessage')}</p>
+                  <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{t('admin.messages.selectMessage')}</p>
                 </div>
               )}
             </div>

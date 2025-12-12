@@ -33,13 +33,13 @@ export const ForgotPassword = () => {
     <PublicLayout>
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-8 h-8 text-primary-600" />
               </div>
-              <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('forgotPassword.title')}</h1>
-              <p className="text-slate-600">{t('forgotPassword.subtitle')}</p>
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t('forgotPassword.title')}</h1>
+              <p className="text-slate-600 dark:text-slate-300">{t('forgotPassword.subtitle')}</p>
             </div>
 
             {error && (
@@ -66,7 +66,7 @@ export const ForgotPassword = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     {t('forgotPassword.email')}
                   </label>
                   <input
@@ -74,7 +74,7 @@ export const ForgotPassword = () => {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="your@email.com"
                     required
                   />
@@ -90,7 +90,7 @@ export const ForgotPassword = () => {
 
                 <Link
                   to="/login"
-                  className="flex items-center justify-center text-slate-600 hover:text-slate-900 font-medium"
+                  className="flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white font-medium"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   {t('forgotPassword.backToLogin')}

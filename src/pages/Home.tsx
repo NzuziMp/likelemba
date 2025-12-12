@@ -11,7 +11,7 @@ export const Home = () => {
       <div className="relative overflow-hidden">
         <div className="container mx-auto px-4 py-20">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
               <span className="inline-block animate-fade-in-up">
                 {t('home.title')}
               </span>
@@ -19,7 +19,7 @@ export const Home = () => {
                 {t('home.titleHighlight')}
               </span>
             </h1>
-            <p className="text-xl text-slate-600 mb-8 leading-relaxed animate-fade-in">
+            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed animate-fade-in">
               {t('home.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -32,7 +32,7 @@ export const Home = () => {
               </Link>
               <Link
                 to="/about"
-                className="inline-flex items-center px-8 py-4 bg-white text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-all border-2 border-slate-200"
+                className="inline-flex items-center px-8 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold rounded-lg hover:bg-slate-50 dark:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-700"
               >
                 {t('home.learnMore')}
               </Link>
@@ -40,13 +40,13 @@ export const Home = () => {
           </div>
         </div>
 
-        <div className="bg-white py-20">
+        <div className="bg-white dark:bg-slate-800 py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                 {t('home.whyChoose')}
               </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                 {t('home.whySubtitle')}
               </p>
             </div>
@@ -56,8 +56,8 @@ export const Home = () => {
                 <div className="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center mb-6">
                   <CircleDollarSign className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.easyManagement')}</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('home.easyManagement')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                   {t('home.easyManagementDesc')}
                 </p>
               </div>
@@ -66,8 +66,8 @@ export const Home = () => {
                 <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center mb-6">
                   <Users className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.communityDriven')}</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('home.communityDriven')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                   {t('home.communityDrivenDesc')}
                 </p>
               </div>
@@ -76,8 +76,8 @@ export const Home = () => {
                 <div className="w-14 h-14 bg-violet-600 rounded-xl flex items-center justify-center mb-6">
                   <Shield className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.secureReliable')}</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('home.secureReliable')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                   {t('home.secureReliableDesc')}
                 </p>
               </div>
@@ -96,7 +96,7 @@ export const Home = () => {
             </p>
             <Link
               to="/register"
-              className="inline-flex items-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-lg hover:bg-primary-50 transition-all shadow-lg"
+              className="inline-flex items-center px-8 py-4 bg-white dark:bg-slate-800 text-primary-600 font-semibold rounded-lg hover:bg-primary-50 transition-all shadow-lg"
             >
               {t('home.createAccount')}
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -104,13 +104,13 @@ export const Home = () => {
           </div>
         </div>
 
-        <div className="bg-slate-50 py-20">
+        <div className="bg-slate-50 dark:bg-slate-800 py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                 {t('home.howItWorks')}
               </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                 {t('home.howItWorksSubtitle')}
               </p>
             </div>
@@ -120,32 +120,32 @@ export const Home = () => {
                 <div className="w-16 h-16 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   1
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('home.step1')}</h3>
-                <p className="text-slate-600 text-sm">{t('home.step1Desc')}</p>
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('home.step1')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">{t('home.step1Desc')}</p>
               </div>
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   2
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('home.step2')}</h3>
-                <p className="text-slate-600 text-sm">{t('home.step2Desc')}</p>
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('home.step2')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">{t('home.step2Desc')}</p>
               </div>
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   3
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('home.step3')}</h3>
-                <p className="text-slate-600 text-sm">{t('home.step3Desc')}</p>
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('home.step3')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">{t('home.step3Desc')}</p>
               </div>
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   4
                 </div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('home.step4')}</h3>
-                <p className="text-slate-600 text-sm">{t('home.step4Desc')}</p>
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('home.step4')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">{t('home.step4Desc')}</p>
               </div>
             </div>
           </div>

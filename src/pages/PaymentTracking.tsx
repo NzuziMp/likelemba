@@ -341,8 +341,8 @@ export const PaymentTracking = () => {
       <UserLayout>
         <div className="text-center py-12">
           <AlertCircle className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('payment.noGroupSelected')}</h2>
-          <p className="text-slate-600">{t('payment.selectGroup')}</p>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('payment.noGroupSelected')}</h2>
+          <p className="text-slate-600 dark:text-slate-300">{t('payment.selectGroup')}</p>
         </div>
       </UserLayout>
     );
@@ -363,8 +363,8 @@ export const PaymentTracking = () => {
       <UserLayout>
         <div className="text-center py-12">
           <AlertCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('payment.error') || 'Error'}</h2>
-          <p className="text-slate-600 mb-4">{error}</p>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('payment.error') || 'Error'}</h2>
+          <p className="text-slate-600 dark:text-slate-300 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
             className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
@@ -379,13 +379,13 @@ export const PaymentTracking = () => {
   return (
     <UserLayout>
       <div className="space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6">
           <div className="mb-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('payment.title')}</h1>
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t('payment.title')}</h1>
                 {group && (
-                  <p className="text-slate-600">
+                  <p className="text-slate-600 dark:text-slate-300">
                     {group.name} - {getFrequencyText(group.payment_frequency)} {t('payment.contributions')}
                   </p>
                 )}
@@ -396,7 +396,7 @@ export const PaymentTracking = () => {
               <div className="grid grid-cols-3 gap-2 mb-4">
                 <Link
                   to={`/members?group=${group.id}`}
-                  className="flex items-center justify-center space-x-2 px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors text-sm"
+                  className="flex items-center justify-center space-x-2 px-4 py-2 bg-slate-100 text-slate-700 dark:text-slate-200 font-medium rounded-lg hover:bg-slate-200 transition-colors text-sm"
                 >
                   <Users className="w-4 h-4" />
                   <span>Members</span>
@@ -458,20 +458,20 @@ export const PaymentTracking = () => {
               >
                 <button
                   onClick={() => toggleMonth(monthData.month)}
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50 dark:bg-slate-800 transition-colors"
                 >
                   <div className="flex items-center space-x-4">
                     <Calendar className={`w-6 h-6 ${isCurrentCycle ? 'text-primary-600' : 'text-slate-600'}`} />
                     <div className="text-left">
                       <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-bold text-slate-900">{monthData.month}</h3>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">{monthData.month}</h3>
                         {isCurrentCycle && (
                           <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-semibold rounded-full">
                             {t('payment.current')}
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-slate-600">
+                      <p className="text-sm text-slate-600 dark:text-slate-300">
                         {t('payment.cycle')} {monthData.cycleNumber} - {monthData.paidCount} of {monthData.totalCount} {t('payment.paid')} ({percentage.toFixed(0)}%)
                       </p>
                     </div>
@@ -479,8 +479,8 @@ export const PaymentTracking = () => {
                   <div className="flex items-center space-x-4">
                     <div className="hidden sm:block w-64">
                       <div className="mb-1 flex items-center justify-between">
-                        <span className="text-xs font-medium text-slate-600">Progress</span>
-                        <span className="text-xs font-bold text-slate-900">{percentage.toFixed(0)}%</span>
+                        <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Progress</span>
+                        <span className="text-xs font-bold text-slate-900 dark:text-white">{percentage.toFixed(0)}%</span>
                       </div>
                       <div className="h-4 bg-slate-200 rounded-full overflow-hidden shadow-inner">
                         <div
@@ -492,13 +492,13 @@ export const PaymentTracking = () => {
                     <div className="flex items-center space-x-2">
                       {isExpanded ? (
                         <>
-                          <span className="text-xs font-medium text-slate-600 hidden sm:inline">Hide</span>
+                          <span className="text-xs font-medium text-slate-600 dark:text-slate-300 hidden sm:inline">Hide</span>
                           <ChevronUp className="w-6 h-6 text-primary-600" />
                         </>
                       ) : (
                         <>
-                          <span className="text-xs font-medium text-slate-600 hidden sm:inline">Expand</span>
-                          <ChevronDown className="w-6 h-6 text-slate-600" />
+                          <span className="text-xs font-medium text-slate-600 dark:text-slate-300 hidden sm:inline">Expand</span>
+                          <ChevronDown className="w-6 h-6 text-slate-600 dark:text-slate-300" />
                         </>
                       )}
                     </div>
@@ -549,15 +549,15 @@ export const PaymentTracking = () => {
                                     {payment.member_name.charAt(0).toUpperCase()}
                                   </div>
                                   <div>
-                                    <p className="font-semibold text-slate-900">{payment.member_name}</p>
-                                    <p className="text-sm text-slate-600">{payment.member_email}</p>
+                                    <p className="font-semibold text-slate-900 dark:text-white">{payment.member_name}</p>
+                                    <p className="text-sm text-slate-600 dark:text-slate-300">{payment.member_email}</p>
                                   </div>
                                 </div>
 
                                 <div className="text-right">
-                                  <p className="font-bold text-slate-900">${payment.amount_due.toFixed(2)}</p>
+                                  <p className="font-bold text-slate-900 dark:text-white">${payment.amount_due.toFixed(2)}</p>
                                   {payment.payment_date && (
-                                    <p className="text-xs text-slate-500">
+                                    <p className="text-xs text-slate-500 dark:text-slate-400">
                                       {new Date(payment.payment_date).toLocaleDateString()}
                                     </p>
                                   )}
@@ -575,7 +575,7 @@ export const PaymentTracking = () => {
                                     <span>{sendingReminder === payment.id ? t('payment.sending') : t('payment.remind')}</span>
                                   </button>
                                   {payment.reminder_sent && (
-                                    <p className="text-xs text-slate-500 text-center mt-1">
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-1">
                                       {t('payment.sent')} {new Date(payment.reminder_sent_at!).toLocaleDateString()}
                                     </p>
                                   )}
@@ -594,9 +594,9 @@ export const PaymentTracking = () => {
         </div>
 
         {monthlyPayments.length === 0 && (
-          <div className="bg-white rounded-2xl shadow-sm p-12 text-center">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-12 text-center">
             <Calendar className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <p className="text-slate-600">{t('payment.noPeriods')}</p>
+            <p className="text-slate-600 dark:text-slate-300">{t('payment.noPeriods')}</p>
           </div>
         )}
       </div>

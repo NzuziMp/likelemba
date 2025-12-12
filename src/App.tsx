@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { AdminProvider } from './contexts/AdminContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
 
@@ -28,10 +29,11 @@ import ActivityLog from './pages/admin/ActivityLog';
 function App() {
   return (
     <Router>
-      <LanguageProvider>
-        <AuthProvider>
-          <AdminProvider>
-            <Routes>
+      <ThemeProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <AdminProvider>
+              <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -133,9 +135,10 @@ function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-          </AdminProvider>
-        </AuthProvider>
-      </LanguageProvider>
+            </AdminProvider>
+          </AuthProvider>
+        </LanguageProvider>
+      </ThemeProvider>
     </Router>
   );
 }

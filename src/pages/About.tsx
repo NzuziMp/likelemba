@@ -10,23 +10,23 @@ export const About = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
               {t('about.title')}
             </h1>
-            <p className="text-xl text-slate-600 leading-relaxed">
+            <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
               {t('about.subtitle')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm p-8 md:p-12 mb-12">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">{t('about.whatIs')}</h2>
-            <p className="text-slate-600 leading-relaxed mb-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-8 md:p-12 mb-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t('about.whatIs')}</h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
               {t('about.whatIsDesc1')}
             </p>
-            <p className="text-slate-600 leading-relaxed mb-4">
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
               {t('about.whatIsDesc2')}
             </p>
-            <p className="text-slate-600 leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
               {t('about.whatIsDesc3')}
             </p>
           </div>
@@ -36,8 +36,8 @@ export const About = () => {
               <div className="w-12 h-12 bg-primary-600 rounded-xl flex items-center justify-center mb-4">
                 <Target className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{t('about.mission')}</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('about.mission')}</h3>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                 {t('about.missionDesc')}
               </p>
             </div>
@@ -46,8 +46,8 @@ export const About = () => {
               <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
                 <Award className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{t('about.objectives')}</h3>
-              <ul className="text-slate-600 leading-relaxed space-y-2">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t('about.objectives')}</h3>
+              <ul className="text-slate-600 dark:text-slate-300 leading-relaxed space-y-2">
                 <li>• {t('about.objective1')}</li>
                 <li>• {t('about.objective2')}</li>
                 <li>• {t('about.objective3')}</li>
@@ -56,45 +56,45 @@ export const About = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm p-8 md:p-12 mb-12">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-8 md:p-12 mb-12">
             <div className="flex items-center mb-6">
               <Heart className="w-8 h-8 text-primary-600 mr-3" />
-              <h2 className="text-2xl font-bold text-slate-900">{t('about.values')}</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t('about.values')}</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('about.communityFirst')}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('about.communityFirst')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                   {t('about.communityFirstDesc')}
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('about.transparency')}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('about.transparency')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                   {t('about.transparencyDesc')}
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('about.accessibility')}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('about.accessibility')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                   {t('about.accessibilityDesc')}
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('about.culturalRespect')}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('about.culturalRespect')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                   {t('about.culturalRespectDesc')}
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('about.security')}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('about.security')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                   {t('about.securityDesc')}
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">{t('about.empowerment')}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('about.empowerment')}</h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                   {t('about.empowermentDesc')}
                 </p>
               </div>

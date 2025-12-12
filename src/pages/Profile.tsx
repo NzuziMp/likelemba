@@ -158,8 +158,8 @@ export const Profile = () => {
   return (
     <UserLayout>
       <div className="max-w-4xl mx-auto space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm p-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-8">{t('profile.title')}</h1>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-8">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">{t('profile.title')}</h1>
 
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex flex-col items-center space-y-4">
@@ -190,15 +190,15 @@ export const Profile = () => {
                   className="hidden"
                 />
               </div>
-              <p className="text-sm text-slate-600 text-center">
+              <p className="text-sm text-slate-600 dark:text-slate-300 text-center">
                 {uploading ? t('profile.uploading') : t('profile.clickToChange')}
               </p>
-              <p className="text-xs text-slate-500">{t('profile.maxSize')}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('profile.maxSize')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="flex-1 space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <User className="w-4 h-4 inline mr-2" />
                   {t('profile.fullName')}
                 </label>
@@ -206,13 +206,13 @@ export const Profile = () => {
                   type="text"
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <Mail className="w-4 h-4 inline mr-2" />
                   {t('profile.email')}
                 </label>
@@ -220,13 +220,13 @@ export const Profile = () => {
                   type="email"
                   value={formData.email}
                   disabled
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50 text-slate-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
                 />
-                <p className="text-xs text-slate-500 mt-1">{t('profile.emailNote')}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{t('profile.emailNote')}</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <Phone className="w-4 h-4 inline mr-2" />
                   {t('profile.phone')}
                 </label>
@@ -234,13 +234,13 @@ export const Profile = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="+1 234 567 8900"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <MapPin className="w-4 h-4 inline mr-2" />
                   {t('profile.address')}
                 </label>
@@ -248,7 +248,7 @@ export const Profile = () => {
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="123 Rue Example, Ville, Pays"
                 />
               </div>
@@ -287,27 +287,27 @@ export const Profile = () => {
 
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-md w-full p-6">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                 <AlertTriangle className="w-6 h-6 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900">{t('profile.deleteConfirmTitle')}</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">{t('profile.deleteConfirmTitle')}</h3>
             </div>
 
-            <p className="text-slate-700 mb-4">
+            <p className="text-slate-700 dark:text-slate-200 mb-4">
               {t('profile.deleteConfirmText')}
             </p>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
-              <p className="text-sm text-slate-600 mb-2">
+            <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 mb-4">
+              <p className="text-sm text-slate-600 dark:text-slate-300 mb-2">
                 {t('profile.typeDELETE')}
               </p>
               <input
                 type="text"
                 value={deleteConfirmation}
                 onChange={(e) => setDeleteConfirmation(e.target.value)}
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="DELETE"
               />
             </div>
@@ -318,7 +318,7 @@ export const Profile = () => {
                   setShowDeleteModal(false);
                   setDeleteConfirmation('');
                 }}
-                className="flex-1 px-4 py-3 bg-slate-200 text-slate-700 font-semibold rounded-lg hover:bg-slate-300 transition-colors"
+                className="flex-1 px-4 py-3 bg-slate-200 text-slate-700 dark:text-slate-200 font-semibold rounded-lg hover:bg-slate-300 transition-colors"
               >
                 {t('common.cancel')}
               </button>

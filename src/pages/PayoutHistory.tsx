@@ -169,10 +169,10 @@ export default function PayoutHistory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center py-12">
           <DollarSign className="mx-auto h-12 w-12 text-slate-400" />
-          <h3 className="mt-2 text-sm font-medium text-slate-900">
+          <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">
             {t('payoutHistory.noGroups')}
           </h3>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             {t('payoutHistory.noGroupsDesc')}
           </p>
         </div>
@@ -183,19 +183,19 @@ export default function PayoutHistory() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">{t('payoutHistory.title')}</h1>
-        <p className="mt-2 text-slate-600">{t('payoutHistory.subtitle')}</p>
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t('payoutHistory.title')}</h1>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">{t('payoutHistory.subtitle')}</p>
       </div>
 
       <div className="mb-6">
-        <label htmlFor="group-select" className="block text-sm font-medium text-slate-700 mb-2">
+        <label htmlFor="group-select" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
           {t('payoutHistory.selectGroup')}
         </label>
         <select
           id="group-select"
           value={selectedGroupId}
           onChange={(e) => setSelectedGroupId(e.target.value)}
-          className="w-full md:w-96 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="w-full md:w-96 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         >
           {groups.map((group) => (
             <option key={group.id} value={group.id}>
@@ -210,44 +210,44 @@ export default function PayoutHistory() {
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       ) : payoutRecords.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow">
+        <div className="text-center py-12 bg-white dark:bg-slate-800 rounded-lg shadow">
           <Calendar className="mx-auto h-12 w-12 text-slate-400" />
-          <h3 className="mt-2 text-sm font-medium text-slate-900">
+          <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">
             {t('payoutHistory.noCycles')}
           </h3>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             {t('payoutHistory.noCyclesDesc')}
           </p>
         </div>
       ) : (
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 shadow-lg rounded-lg overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-slate-200">
-              <thead className="bg-slate-50">
+              <thead className="bg-slate-50 dark:bg-slate-800">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {t('payoutHistory.cycle')}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {t('payoutHistory.beneficiary')}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {t('payoutHistory.paymentDate')}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {t('payoutHistory.totalAmount')}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {t('payoutHistory.contributions')}
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     {t('payoutHistory.status')}
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-slate-200">
+              <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200">
                 {payoutRecords.map((record) => (
-                  <tr key={record.id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={record.id} className="hover:bg-slate-50 dark:bg-slate-800 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
@@ -258,24 +258,24 @@ export default function PayoutHistory() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-slate-900">
+                      <div className="text-sm font-medium text-slate-900 dark:text-white">
                         {record.beneficiary_name}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-slate-500">
+                      <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                         <Calendar className="w-4 h-4 mr-2" />
                         {new Date(record.payment_date).toLocaleDateString()}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm font-semibold text-slate-900">
+                      <div className="flex items-center text-sm font-semibold text-slate-900 dark:text-white">
                         <DollarSign className="w-4 h-4 mr-1" />
                         {record.total_amount.toFixed(2)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-slate-500">
+                      <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                         <Users className="w-4 h-4 mr-2" />
                         {record.payments_received}/{record.member_count}
                       </div>

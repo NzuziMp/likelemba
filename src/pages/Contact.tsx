@@ -50,42 +50,42 @@ export const Contact = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               {t('contact.title')}
             </h1>
-            <p className="text-xl text-slate-600">
+            <p className="text-xl text-slate-600 dark:text-slate-300">
               {t('contact.subtitle')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 text-center">
               <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">{t('contact.email')}</h3>
-              <p className="text-slate-600">contact@likelemba.com</p>
+              <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('contact.email')}</h3>
+              <p className="text-slate-600 dark:text-slate-300">contact@likelemba.com</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 text-center">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">{t('contact.phone')}</h3>
-              <p className="text-slate-600">+1 (418) 732-1925</p>
+              <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('contact.phone')}</h3>
+              <p className="text-slate-600 dark:text-slate-300">+1 (418) 732-1925</p>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 text-center">
               <div className="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="w-6 h-6 text-violet-600" />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2">{t('contact.address')}</h3>
-              <p className="text-slate-600">Rimouski, QC, Canada</p>
+              <h3 className="font-bold text-slate-900 dark:text-white mb-2">{t('contact.address')}</h3>
+              <p className="text-slate-600 dark:text-slate-300">Rimouski, QC, Canada</p>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">{t('contact.sendMessage')}</h2>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 md:p-12">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">{t('contact.sendMessage')}</h2>
 
             {error && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -104,7 +104,7 @@ export const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     {t('contact.fullName')}
                   </label>
                   <input
@@ -112,14 +112,14 @@ export const Contact = () => {
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="Nzuzi Mpingi"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     {t('contact.emailAddress')}
                   </label>
                   <input
@@ -127,7 +127,7 @@ export const Contact = () => {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="your@email.com"
                     required
                   />
@@ -135,7 +135,7 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   {t('contact.phoneNumber')} <span className="text-slate-400 font-normal">({t('contact.optional')})</span>
                 </label>
                 <input
@@ -143,13 +143,13 @@ export const Contact = () => {
                   id="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                   placeholder="+1 (418) 732-1925"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   {t('contact.message')}
                 </label>
                 <textarea
@@ -157,7 +157,7 @@ export const Contact = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={6}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
                   placeholder={t('contact.messagePlaceholder')}
                   required
                 />

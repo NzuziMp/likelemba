@@ -114,11 +114,11 @@ export default function UserManagement() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{t('admin.users.title')}</h1>
-          <p className="mt-2 text-slate-600">{t('admin.users.subtitle')}</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t('admin.users.title')}</h1>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">{t('admin.users.subtitle')}</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -127,13 +127,13 @@ export default function UserManagement() {
                 placeholder={t('admin.users.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">{t('admin.users.allStatuses')}</option>
               <option value="active">{t('admin.users.active')}</option>
@@ -149,31 +149,31 @@ export default function UserManagement() {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200">
-                <thead className="bg-slate-50">
+                <thead className="bg-slate-50 dark:bg-slate-800">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.users.user')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.users.contact')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.users.role')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.users.status')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.users.joined')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.users.actions')}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-slate-200">
+                <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200">
                   {filteredUsers.map((user) => (
-                    <tr key={user.id} className="hover:bg-slate-50">
+                    <tr key={user.id} className="hover:bg-slate-50 dark:bg-slate-800">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
@@ -181,7 +181,7 @@ export default function UserManagement() {
                           </div>
                           <div className="ml-4">
                             <div className="flex items-center space-x-2">
-                              <div className="text-sm font-medium text-slate-900">{user.full_name}</div>
+                              <div className="text-sm font-medium text-slate-900 dark:text-white">{user.full_name}</div>
                               {user.is_admin && (
                                 <Shield className="w-4 h-4 text-primary-600" title="Admin" />
                               )}
@@ -190,11 +190,11 @@ export default function UserManagement() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-slate-900">{user.email}</div>
-                        <div className="text-sm text-slate-500">{user.phone}</div>
+                        <div className="text-sm text-slate-900 dark:text-white">{user.email}</div>
+                        <div className="text-sm text-slate-500 dark:text-slate-400">{user.phone}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-sm text-slate-900">
+                        <span className="text-sm text-slate-900 dark:text-white">
                           {user.is_maman_likelemba ? t('admin.users.organizer') : t('admin.users.member')}
                         </span>
                       </td>
@@ -206,14 +206,14 @@ export default function UserManagement() {
                           </span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
                         {new Date(user.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         <select
                           value={user.account_status}
                           onChange={(e) => updateUserStatus(user.id, e.target.value)}
-                          className="px-3 py-1 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          className="px-3 py-1 border border-slate-300 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                         >
                           <option value="active">{t('admin.users.active')}</option>
                           <option value="suspended">{t('admin.users.suspended')}</option>
@@ -228,7 +228,7 @@ export default function UserManagement() {
               {filteredUsers.length === 0 && (
                 <div className="text-center py-12">
                   <Users className="mx-auto h-12 w-12 text-slate-400" />
-                  <h3 className="mt-2 text-sm font-medium text-slate-900">{t('admin.users.noUsers')}</h3>
+                  <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">{t('admin.users.noUsers')}</h3>
                 </div>
               )}
             </div>

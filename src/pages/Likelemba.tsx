@@ -138,10 +138,10 @@ export const LikeLemba = () => {
   return (
     <UserLayout>
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-sm p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">{t('likelemba.title')}</h1>
-            <p className="text-slate-600">{t('likelemba.subtitle')}</p>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t('likelemba.title')}</h1>
+            <p className="text-slate-600 dark:text-slate-300">{t('likelemba.subtitle')}</p>
           </div>
 
           {error && (
@@ -152,7 +152,7 @@ export const LikeLemba = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                 {t('likelemba.groupName')}
               </label>
               <input
@@ -161,7 +161,7 @@ export const LikeLemba = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 placeholder="e.g., Community Savings Group"
                 required
               />
@@ -169,7 +169,7 @@ export const LikeLemba = () => {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="numberOfMembers" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="numberOfMembers" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <Users className="w-4 h-4 inline mr-1" />
                   {t('likelemba.numberOfMembers')}
                 </label>
@@ -179,7 +179,7 @@ export const LikeLemba = () => {
                   name="numberOfMembers"
                   value={formData.numberOfMembers}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   placeholder="e.g., 20"
                   min="2"
                   required
@@ -187,7 +187,7 @@ export const LikeLemba = () => {
               </div>
 
               <div>
-                <label htmlFor="monthlyAmount" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="monthlyAmount" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <DollarSign className="w-4 h-4 inline mr-1" />
                   {t('likelemba.amountPerMember')}
                 </label>
@@ -197,7 +197,7 @@ export const LikeLemba = () => {
                   name="monthlyAmount"
                   value={formData.monthlyAmount}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   placeholder="e.g., 100"
                   step="0.01"
                   min="0.01"
@@ -208,7 +208,7 @@ export const LikeLemba = () => {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="paymentFrequency" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="paymentFrequency" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <Calendar className="w-4 h-4 inline mr-1" />
                   {t('likelemba.paymentFrequency')}
                 </label>
@@ -217,7 +217,7 @@ export const LikeLemba = () => {
                   name="paymentFrequency"
                   value={formData.paymentFrequency}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required
                 >
                   <option value="daily">Daily</option>
@@ -227,7 +227,7 @@ export const LikeLemba = () => {
               </div>
 
               <div>
-                <label htmlFor="paymentMethod" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="paymentMethod" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   <CreditCard className="w-4 h-4 inline mr-1" />
                   Payment Method
                 </label>
@@ -236,7 +236,7 @@ export const LikeLemba = () => {
                   name="paymentMethod"
                   value={formData.paymentMethod}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required
                 >
                   <option value="interac">Interac</option>
@@ -247,7 +247,7 @@ export const LikeLemba = () => {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="startDate" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="startDate" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   {t('likelemba.startDate')}
                 </label>
                 <input
@@ -256,13 +256,13 @@ export const LikeLemba = () => {
                   name="startDate"
                   value={formData.startDate}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="endDate" className="block text-sm font-medium text-slate-700 mb-2">
+                <label htmlFor="endDate" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   {t('likelemba.endDate')} <span className="text-xs text-primary-600">(Auto-calculated)</span>
                 </label>
                 <input
@@ -271,11 +271,11 @@ export const LikeLemba = () => {
                   name="endDate"
                   value={formData.endDate}
                   readOnly
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-slate-50 text-slate-700 cursor-not-allowed"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 cursor-not-allowed"
                   required
                 />
                 {formData.endDate && (
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                     Calculated based on {formData.numberOfMembers} members with {formData.paymentFrequency} payments
                   </p>
                 )}

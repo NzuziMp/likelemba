@@ -523,8 +523,8 @@ export const Members = () => {
       <UserLayout>
         <div className="text-center py-12">
           <Users className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">No Group Selected</h2>
-          <p className="text-slate-600">Please select a group from your dashboard</p>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">No Group Selected</h2>
+          <p className="text-slate-600 dark:text-slate-300">Please select a group from your dashboard</p>
         </div>
       </UserLayout>
     );
@@ -534,10 +534,10 @@ export const Members = () => {
     <UserLayout>
       <div className="space-y-6">
         {group && (
-          <div className="bg-white rounded-2xl shadow-sm p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h1 className="text-3xl font-bold text-slate-900">{group.name}</h1>
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{group.name}</h1>
                 <div className="mt-2">
                   {group.status === 'active' && (
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
@@ -581,7 +581,7 @@ export const Members = () => {
                 </div>
               )}
             </div>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600">
+            <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600 dark:text-slate-300">
               <div className="flex items-center">
                 <Users className="w-4 h-4 mr-2" />
                 {members.length} / {group.number_of_members} members
@@ -697,12 +697,12 @@ export const Members = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-2xl shadow-sm p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-slate-900">{t('members.title')}</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t('members.title')}</h2>
               {group && (
-                <p className="text-sm text-slate-600 mt-1">
+                <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
                   {members.length} of {group.number_of_members} members added
                   {members.length >= group.number_of_members && (
                     <span className="ml-2 text-green-600 font-medium">✓ Group is full</span>
@@ -747,19 +747,19 @@ export const Members = () => {
                   placeholder="Search members by name, email, or phone..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-slate-900 placeholder-slate-400"
+                  className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors text-slate-900 dark:text-white placeholder-slate-400"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-300 transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 )}
               </div>
               {searchQuery && (
-                <p className="mt-2 text-sm text-slate-600">
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
                   Found {filteredMembers.length} of {members.length} members
                 </p>
               )}
@@ -773,7 +773,7 @@ export const Members = () => {
           ) : members.length === 0 ? (
             <div className="text-center py-12">
               <Users className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600 mb-4">{t('members.noMembers')}</p>
+              <p className="text-slate-600 dark:text-slate-300 mb-4">{t('members.noMembers')}</p>
               <button
                 onClick={() => handleOpenModal()}
                 className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
@@ -785,7 +785,7 @@ export const Members = () => {
           ) : filteredMembers.length === 0 ? (
             <div className="text-center py-12">
               <Search className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600 mb-2">No members found matching "{searchQuery}"</p>
+              <p className="text-slate-600 dark:text-slate-300 mb-2">No members found matching "{searchQuery}"</p>
               <button
                 onClick={() => setSearchQuery('')}
                 className="text-primary-600 hover:text-primary-700 font-medium"
@@ -807,7 +807,7 @@ export const Members = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-bold text-slate-900">{member.full_name}</h3>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">{member.full_name}</h3>
                         {member.has_paid_current_cycle && (
                           <CheckCircle className="w-5 h-5 text-green-600" />
                         )}
@@ -819,7 +819,7 @@ export const Members = () => {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleOpenModal(member)}
-                        className="p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                        className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 rounded-lg transition-colors"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
@@ -833,21 +833,21 @@ export const Members = () => {
                   </div>
 
                   <div className="space-y-2 text-sm mb-4">
-                    <div className="flex items-center text-slate-600">
+                    <div className="flex items-center text-slate-600 dark:text-slate-300">
                       <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span className="truncate">{member.email}</span>
                     </div>
-                    <div className="flex items-center text-slate-600">
+                    <div className="flex items-center text-slate-600 dark:text-slate-300">
                       <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span>{member.phone}</span>
                     </div>
                     {member.address && (
-                      <div className="flex items-center text-slate-600">
+                      <div className="flex items-center text-slate-600 dark:text-slate-300">
                         <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
                         <span className="truncate">{member.address}</span>
                       </div>
                     )}
-                    <div className="flex items-center text-slate-600">
+                    <div className="flex items-center text-slate-600 dark:text-slate-300">
                       <DollarSign className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span>${member.membership_amount.toFixed(2)} contribution</span>
                     </div>
@@ -902,9 +902,9 @@ export const Members = () => {
 
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white">
-              <h2 className="text-2xl font-bold text-slate-900">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-white dark:bg-slate-800">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {editingMember ? t('members.editMember') : t('members.add')}
               </h2>
               <button
@@ -923,68 +923,68 @@ export const Members = () => {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   {t('members.fullName')}
                 </label>
                 <input
                   type="text"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required
                 />
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     Email
                   </label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     Phone
                   </label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   Address <span className="text-slate-400">(Optional)</span>
                 </label>
                 <input
                   type="text"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     Membership Amount ($)
                   </label>
                   <input
                     type="number"
                     value={formData.membershipAmount}
                     onChange={(e) => setFormData({ ...formData, membershipAmount: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     step="0.01"
                     min="0.01"
                     required
@@ -992,14 +992,14 @@ export const Members = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                     Receipt Order
                   </label>
                   <input
                     type="number"
                     value={formData.receiptOrder}
                     onChange={(e) => setFormData({ ...formData, receiptOrder: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     min="1"
                     required
                   />
@@ -1010,7 +1010,7 @@ export const Members = () => {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="flex-1 py-3 px-4 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
+                  className="flex-1 py-3 px-4 bg-slate-100 text-slate-700 dark:text-slate-200 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
                 >
                   Cancel
                 </button>
@@ -1028,9 +1028,9 @@ export const Members = () => {
 
       {showImportModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white">
-              <h2 className="text-2xl font-bold text-slate-900">Import Members</h2>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between sticky top-0 bg-white dark:bg-slate-800">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Import Members</h2>
               <button
                 onClick={handleCloseImportModal}
                 className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
@@ -1058,8 +1058,8 @@ export const Members = () => {
               </div>
 
               <div>
-                <h3 className="font-bold text-slate-900 mb-2">Required Columns:</h3>
-                <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-2">Required Columns:</h3>
+                <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-1 list-disc list-inside">
                   <li><strong>full_name</strong> - Member's full name</li>
                   <li><strong>email</strong> - Member's email address</li>
                   <li><strong>phone</strong> - Member's phone number</li>
@@ -1070,14 +1070,14 @@ export const Members = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   Upload Excel or CSV File
                 </label>
                 <input
                   type="file"
                   accept=".xlsx,.xls,.csv"
                   onChange={handleFileChange}
-                  className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+                  className="w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
                 />
               </div>
 
@@ -1102,11 +1102,11 @@ export const Members = () => {
               )}
 
               {group && (
-                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                  <p className="text-sm text-slate-600">
+                <div className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
                     <strong>Current members:</strong> {members.length} / {group.number_of_members}
                   </p>
-                  <p className="text-sm text-slate-600 mt-1">
+                  <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
                     <strong>Available slots:</strong> {group.number_of_members - members.length}
                   </p>
                 </div>
@@ -1117,7 +1117,7 @@ export const Members = () => {
                   type="button"
                   onClick={handleCloseImportModal}
                   disabled={importing}
-                  className="flex-1 py-3 px-4 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors disabled:opacity-50"
+                  className="flex-1 py-3 px-4 bg-slate-100 text-slate-700 dark:text-slate-200 font-semibold rounded-lg hover:bg-slate-200 transition-colors disabled:opacity-50"
                 >
                   Cancel
                 </button>

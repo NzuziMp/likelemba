@@ -211,15 +211,15 @@ export const FAQ = () => {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4">
               <HelpCircle className="w-8 h-8 text-primary-600" />
             </div>
-            <h1 className="text-4xl font-bold text-slate-900 mb-4">
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
               {t('faq.title')}
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
               {t('faq.subtitle')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden mb-8">
             <div className="bg-gradient-to-r from-primary-600 to-blue-600 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
@@ -229,7 +229,7 @@ export const FAQ = () => {
                 {user && chatMessages.length > 0 && (
                   <button
                     onClick={() => setShowChat(!showChat)}
-                    className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
+                    className="px-4 py-2 bg-white/20 hover:bg-white dark:bg-slate-800/30 text-white rounded-lg transition-colors"
                   >
                     {showChat ? t('faq.hideChat') : t('faq.showChat')}
                   </button>
@@ -244,14 +244,14 @@ export const FAQ = () => {
                     onChange={(e) => setUserQuestion(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAskQuestion()}
                     placeholder={t('faq.askPlaceholder')}
-                    className="w-full px-6 py-4 rounded-xl border-0 focus:ring-2 focus:ring-white text-slate-900 placeholder-slate-400"
+                    className="w-full px-6 py-4 rounded-xl border-0 focus:ring-2 focus:ring-white text-slate-900 dark:text-white placeholder-slate-400"
                     disabled={isAsking}
                   />
                 </div>
                 <button
                   onClick={handleAskQuestion}
                   disabled={!userQuestion.trim() || isAsking}
-                  className="px-6 py-4 bg-white text-primary-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                  className="px-6 py-4 bg-white dark:bg-slate-800 text-primary-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                 >
                   {isAsking ? (
                     <Loader className="w-5 h-5 animate-spin" />
@@ -270,7 +270,7 @@ export const FAQ = () => {
             </div>
 
             {showChat && chatMessages.length > 0 && (
-              <div className="p-6 bg-slate-50 border-t border-slate-200 max-h-96 overflow-y-auto">
+              <div className="p-6 bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 max-h-96 overflow-y-auto">
                 <div className="space-y-4">
                   {chatMessages.map((message) => (
                     <div key={message.id} className="space-y-2">
@@ -281,18 +281,18 @@ export const FAQ = () => {
                       </div>
 
                       {message.isLoading ? (
-                        <div className="flex items-center space-x-2 text-slate-500">
+                        <div className="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
                           <Loader className="w-4 h-4 animate-spin" />
                           <span className="text-sm">{t('faq.thinking')}</span>
                         </div>
                       ) : (
                         <div>
-                          <div className="bg-white border-2 border-slate-200 px-4 py-3 rounded-2xl rounded-tl-sm max-w-xl">
-                            <p className="text-sm text-slate-700 whitespace-pre-line">{message.answer}</p>
+                          <div className="bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 px-4 py-3 rounded-2xl rounded-tl-sm max-w-xl">
+                            <p className="text-sm text-slate-700 dark:text-slate-200 whitespace-pre-line">{message.answer}</p>
                           </div>
                           {!message.isLoading && message.id && !message.id.startsWith('temp-') && (
                             <div className="flex items-center space-x-2 mt-2 ml-2">
-                              <span className="text-xs text-slate-500">{t('faq.wasHelpful')}</span>
+                              <span className="text-xs text-slate-500 dark:text-slate-400">{t('faq.wasHelpful')}</span>
                               <button
                                 onClick={() => handleFeedback(message.id, true)}
                                 className={`p-1 rounded transition-colors ${
@@ -325,11 +325,11 @@ export const FAQ = () => {
             )}
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <BookOpen className="w-6 h-6 text-primary-600" />
-                <h2 className="text-2xl font-bold text-slate-900">{t('faq.browseFAQs')}</h2>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{t('faq.browseFAQs')}</h2>
               </div>
             </div>
 
@@ -341,12 +341,12 @@ export const FAQ = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t('faq.searchPlaceholder')}
-                  className="w-full pl-12 pr-10 py-3 border-2 border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                  className="w-full pl-12 pr-10 py-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-300"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -383,28 +383,28 @@ export const FAQ = () => {
             {filteredFaqs.length === 0 ? (
               <div className="text-center py-12">
                 <Search className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                <p className="text-slate-600">{t('faq.noResults')}</p>
+                <p className="text-slate-600 dark:text-slate-300">{t('faq.noResults')}</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {filteredFaqs.map((faq) => (
                   <details
                     key={faq.id}
-                    className="group border-2 border-slate-200 rounded-xl overflow-hidden hover:border-primary-300 transition-colors"
+                    className="group border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden hover:border-primary-300 transition-colors"
                   >
-                    <summary className="cursor-pointer px-6 py-4 bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between">
+                    <summary className="cursor-pointer px-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 transition-colors flex items-center justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-slate-900 group-open:text-primary-600">
+                        <h3 className="font-semibold text-slate-900 dark:text-white group-open:text-primary-600">
                           {faq.question}
                         </h3>
-                        <span className="text-xs text-slate-500 mt-1 inline-block">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 mt-1 inline-block">
                           {formatCategory(faq.category)}
                         </span>
                       </div>
                       <HelpCircle className="w-5 h-5 text-slate-400 group-open:text-primary-600 ml-4 flex-shrink-0" />
                     </summary>
-                    <div className="px-6 py-4 bg-white">
-                      <p className="text-slate-700 leading-relaxed whitespace-pre-line">{faq.answer}</p>
+                    <div className="px-6 py-4 bg-white dark:bg-slate-800">
+                      <p className="text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-line">{faq.answer}</p>
                     </div>
                   </details>
                 ))}
@@ -413,7 +413,7 @@ export const FAQ = () => {
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-slate-600 mb-4">{t('faq.stillQuestions')}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{t('faq.stillQuestions')}</p>
             <a
               href="/contact"
               className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-colors"

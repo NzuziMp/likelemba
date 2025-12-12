@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useAdmin } from '../../contexts/AdminContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { ThemeToggle } from '../ThemeToggle';
 import { ScrollToTop } from '../ScrollToTop';
 
 interface AdminLayoutProps {
@@ -36,30 +37,33 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <ScrollToTop />
 
-      <nav className="bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-lg">
+      <nav className="bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <Shield className="w-8 h-8 text-primary-400" />
               <div>
                 <h1 className="text-xl font-bold">Likelemba Admin</h1>
-                <p className="text-xs text-slate-300">
+                <p className="text-xs text-slate-300 dark:text-slate-400">
                   {adminUser?.role === 'super_admin' ? 'Super Admin' :
                    adminUser?.role === 'admin' ? 'Administrator' : 'Moderator'}
                 </p>
               </div>
             </div>
 
-            <button
-              onClick={handleSignOut}
-              className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-              <span>Sign Out</span>
-            </button>
+            <div className="flex items-center space-x-2">
+              <ThemeToggle />
+              <button
+                onClick={handleSignOut}
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -67,14 +71,14 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           <aside className="md:w-64 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow-md p-4 sticky top-8">
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-4 sticky top-8">
               <nav className="space-y-2">
                 <Link
                   to="/admin/dashboard"
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive('/admin/dashboard')
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
                   }`}
                 >
                   <LayoutDashboard className="w-5 h-5" />
@@ -85,8 +89,8 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   to="/admin/users"
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive('/admin/users')
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
                   }`}
                 >
                   <Users className="w-5 h-5" />
@@ -97,8 +101,8 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   to="/admin/groups"
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive('/admin/groups')
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
                   }`}
                 >
                   <Building2 className="w-5 h-5" />
@@ -109,8 +113,8 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   to="/admin/messages"
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive('/admin/messages')
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
                   }`}
                 >
                   <MessageSquare className="w-5 h-5" />
@@ -121,8 +125,8 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   to="/admin/activity"
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                     isActive('/admin/activity')
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
                   }`}
                 >
                   <Activity className="w-5 h-5" />
@@ -134,8 +138,8 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                     to="/admin/settings"
                     className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                       isActive('/admin/settings')
-                        ? 'bg-primary-50 text-primary-700'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        ? 'bg-primary-50 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700'
                     }`}
                   >
                     <Settings className="w-5 h-5" />
@@ -143,10 +147,10 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   </Link>
                 )}
 
-                <div className="pt-4 mt-4 border-t border-slate-200">
+                <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-700">
                   <Link
                     to="/dashboard"
-                    className="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-700 transition-colors"
                   >
                     <Users className="w-5 h-5" />
                     <span>{t('admin.nav.userView')}</span>

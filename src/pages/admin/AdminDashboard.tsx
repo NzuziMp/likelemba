@@ -136,18 +136,18 @@ export default function AdminDashboard() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{t('admin.dashboard.title')}</h1>
-          <p className="mt-2 text-slate-600">{t('admin.dashboard.subtitle')}</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t('admin.dashboard.title')}</h1>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">{t('admin.dashboard.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {statCards.map((card, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6">
+            <div key={index} className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">{card.title}</p>
-                  <p className="mt-2 text-3xl font-bold text-slate-900">{card.value}</p>
-                  <p className="mt-1 text-sm text-slate-500">{card.subtitle}</p>
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300">{card.title}</p>
+                  <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{card.value}</p>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{card.subtitle}</p>
                 </div>
                 <div className={`${card.color} p-3 rounded-lg`}>
                   <card.icon className="w-6 h-6 text-white" />
@@ -158,22 +158,22 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-slate-900">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('admin.dashboard.recentActivity')}
               </h2>
               <Activity className="w-5 h-5 text-slate-400" />
             </div>
             <div className="space-y-3">
               {stats.recentActivity.length === 0 ? (
-                <p className="text-slate-500 text-center py-8">{t('admin.dashboard.noActivity')}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-center py-8">{t('admin.dashboard.noActivity')}</p>
               ) : (
                 stats.recentActivity.map((activity) => (
-                  <div key={activity.id} className="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg">
+                  <div key={activity.id} className="flex items-start space-x-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
                     <div className="flex-1">
-                      <p className="text-sm text-slate-900">{activity.action}</p>
-                      <p className="text-xs text-slate-500 mt-1">
+                      <p className="text-sm text-slate-900 dark:text-white">{activity.action}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                         {activity.admin_name} • {new Date(activity.created_at).toLocaleString()}
                       </p>
                     </div>
@@ -183,9 +183,9 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-slate-900">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
                 {t('admin.dashboard.systemHealth')}
               </h2>
               <TrendingUp className="w-5 h-5 text-green-500" />
@@ -194,7 +194,7 @@ export default function AdminDashboard() {
               <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-slate-900">
+                  <span className="text-sm font-medium text-slate-900 dark:text-white">
                     {t('admin.dashboard.databaseStatus')}
                   </span>
                 </div>
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
               <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-slate-900">
+                  <span className="text-sm font-medium text-slate-900 dark:text-white">
                     {t('admin.dashboard.apiStatus')}
                   </span>
                 </div>
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
                 <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <AlertCircle className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm font-medium text-slate-900">
+                    <span className="text-sm font-medium text-slate-900 dark:text-white">
                       {t('admin.dashboard.highMessageVolume')}
                     </span>
                   </div>

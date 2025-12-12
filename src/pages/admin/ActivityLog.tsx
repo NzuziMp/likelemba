@@ -61,8 +61,8 @@ export default function ActivityLog() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{t('admin.activity.title')}</h1>
-          <p className="mt-2 text-slate-600">{t('admin.activity.subtitle')}</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t('admin.activity.title')}</h1>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">{t('admin.activity.subtitle')}</p>
         </div>
 
         <div className="flex items-center gap-4">
@@ -70,7 +70,7 @@ export default function ActivityLog() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="all">{t('admin.activity.allTypes')}</option>
             {uniqueTypes.map(type => (
@@ -84,29 +84,29 @@ export default function ActivityLog() {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-200">
-                <thead className="bg-slate-50">
+                <thead className="bg-slate-50 dark:bg-slate-800">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.activity.timestamp')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.activity.admin')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.activity.action')}
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                       {t('admin.activity.targetType')}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-slate-200">
+                <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200">
                   {filteredActivities.map((activity) => (
-                    <tr key={activity.id} className="hover:bg-slate-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                    <tr key={activity.id} className="hover:bg-slate-50 dark:bg-slate-800">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
                         <div className="flex items-center">
                           <Calendar className="w-4 h-4 mr-2" />
                           {new Date(activity.created_at).toLocaleString()}
@@ -115,11 +115,11 @@ export default function ActivityLog() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <User className="w-4 h-4 mr-2 text-slate-400" />
-                          <span className="text-sm font-medium text-slate-900">{activity.admin_name}</span>
+                          <span className="text-sm font-medium text-slate-900 dark:text-white">{activity.admin_name}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="text-sm text-slate-900">{activity.action}</span>
+                        <span className="text-sm text-slate-900 dark:text-white">{activity.action}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {activity.target_type && (
@@ -136,7 +136,7 @@ export default function ActivityLog() {
               {filteredActivities.length === 0 && (
                 <div className="text-center py-12">
                   <Activity className="mx-auto h-12 w-12 text-slate-400" />
-                  <h3 className="mt-2 text-sm font-medium text-slate-900">{t('admin.activity.noActivity')}</h3>
+                  <h3 className="mt-2 text-sm font-medium text-slate-900 dark:text-white">{t('admin.activity.noActivity')}</h3>
                 </div>
               )}
             </div>
