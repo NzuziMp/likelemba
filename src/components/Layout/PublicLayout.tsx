@@ -23,8 +23,8 @@ export const PublicLayout = ({ children }: PublicLayoutProps) => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-lg bg-white dark:bg-white p-1 flex items-center justify-center">
-                <img src="/fichier_7.png" alt="Likelemba" className="w-full h-full object-contain" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center shadow-md">
+                <span className="text-white font-bold text-lg">L</span>
               </div>
               <span className="text-xl font-bold text-slate-900 dark:text-white">Likelemba</span>
             </Link>
