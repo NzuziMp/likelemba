@@ -1,10 +1,43 @@
 import { Link } from 'react-router-dom';
-import { CircleDollarSign, Users, Shield, TrendingUp, ArrowRight } from 'lucide-react';
+import { CircleDollarSign, Users, Shield, TrendingUp, ArrowRight, Eye } from 'lucide-react';
 import { PublicLayout } from '../components/Layout/PublicLayout';
 import { useLanguage } from '../contexts/LanguageContext';
+import { supabase } from '../lib/supabase';
+import { useEffect, useState } from 'react';
 
 export const Home = () => {
   const { t } = useLanguage();
+  const [visitorStats, setVisitorStats] = useState<{ total_visits: number; unique_visitors: number } | null>(null);
+
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        const { data, error } = await supabase.rpc('increment_page_view', {
+          p_page: 'homepage'
+        });
+
+        if (error) throw error;
+
+        if (data) {
+          setVisitorStats(data);
+        }
+      } catch (error) {
+        console.error('Error tracking visit:', error);
+
+        const { data } = await supabase
+          .from('visitor_stats')
+          .select('total_visits, unique_visitors')
+          .eq('page', 'homepage')
+          .single();
+
+        if (data) {
+          setVisitorStats(data);
+        }
+      }
+    };
+
+    trackVisit();
+  }, []);
 
   return (
     <PublicLayout>
@@ -37,6 +70,15 @@ export const Home = () => {
                 {t('home.learnMore')}
               </Link>
             </div>
+
+            {visitorStats && (
+              <div className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-700 dark:text-slate-300">
+                <Eye className="w-5 h-5 text-primary-600" />
+                <span className="text-sm font-medium">
+                  {visitorStats.total_visits.toLocaleString()} {t('home.visitors')}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

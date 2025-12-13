@@ -58,6 +58,7 @@ const translations: Record<Language, Record<string, string>> = {
     'home.step3Desc': 'Members make regular contributions as scheduled',
     'home.step4': 'Receive Payout',
     'home.step4Desc': 'Each member receives the full amount in turn',
+    'home.visitors': 'visitors',
 
     'about.title': 'About Likelemba',
     'about.subtitle': 'Empowering communities through traditional savings practices enhanced by modern technology',
@@ -490,6 +491,7 @@ const translations: Record<Language, Record<string, string>> = {
     'home.step3Desc': 'Les membres font des contributions régulières selon le calendrier',
     'home.step4': 'Recevoir le paiement',
     'home.step4Desc': 'Chaque membre reçoit le montant total à tour de rôle',
+    'home.visitors': 'visiteurs',
 
     'about.title': 'À propos de Likelemba',
     'about.subtitle': 'Autonomiser les communautés grâce aux pratiques d\'épargne traditionnelles améliorées par la technologie moderne',
@@ -832,6 +834,7 @@ const translations: Record<Language, Record<string, string>> = {
     'home.step3Desc': 'يقوم الأعضاء بمساهمات منتظمة حسب الجدول الزمني',
     'home.step4': 'استلام الدفعة',
     'home.step4Desc': 'يحصل كل عضو على المبلغ الكامل بالتناوب',
+    'home.visitors': 'زوار',
 
     'about.title': 'عن ليكيلمبا',
     'about.subtitle': 'تمكين المجتمعات من خلال ممارسات الادخار التقليدية المحسنة بالتكنولوجيا الحديثة',
@@ -1174,6 +1177,7 @@ const translations: Record<Language, Record<string, string>> = {
     'home.step3Desc': 'Os membros fazem contribuições regulares conforme programado',
     'home.step4': 'Receber Pagamento',
     'home.step4Desc': 'Cada membro recebe o valor total por vez',
+    'home.visitors': 'visitantes',
 
     'about.title': 'Sobre Likelemba',
     'about.subtitle': 'Capacitando comunidades através de práticas tradicionais de poupança aprimoradas pela tecnologia moderna',
