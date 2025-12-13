@@ -49,7 +49,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <img src="/fichier_7 copy copy.png" alt="Likelemba" className="w-10 h-10 object-contain" />
+              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md">L</div>
               <div>
                 <h1 className="text-xl font-bold">Likelemba Admin</h1>
                 <p className="text-xs text-slate-300 dark:text-slate-400">
