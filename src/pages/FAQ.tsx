@@ -10,6 +10,12 @@ interface FAQ {
   question: string;
   answer: string;
   category: string;
+  question_fr?: string;
+  answer_fr?: string;
+  question_ar?: string;
+  answer_ar?: string;
+  question_pt?: string;
+  answer_pt?: string;
 }
 
 interface ChatMessage {
@@ -22,7 +28,7 @@ interface ChatMessage {
 
 export const FAQ = () => {
   const { user } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [filteredFaqs, setFilteredFaqs] = useState<FAQ[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,7 +49,7 @@ export const FAQ = () => {
 
   useEffect(() => {
     filterFAQs();
-  }, [searchQuery, selectedCategory, faqs]);
+  }, [searchQuery, selectedCategory, faqs, language]);
 
   useEffect(() => {
     scrollToBottom();
@@ -72,6 +78,24 @@ export const FAQ = () => {
     }
   };
 
+  const getLocalizedFAQ = (faq: FAQ) => {
+    let question = faq.question;
+    let answer = faq.answer;
+
+    if (language === 'fr' && faq.question_fr) {
+      question = faq.question_fr;
+      answer = faq.answer_fr;
+    } else if (language === 'ar' && faq.question_ar) {
+      question = faq.question_ar;
+      answer = faq.answer_ar;
+    } else if (language === 'pt' && faq.question_pt) {
+      question = faq.question_pt;
+      answer = faq.answer_pt;
+    }
+
+    return { question, answer };
+  };
+
   const fetchChatHistory = async () => {
     try {
       const { data, error } = await supabase
@@ -98,10 +122,11 @@ export const FAQ = () => {
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(faq =>
-        faq.question.toLowerCase().includes(query) ||
-        faq.answer.toLowerCase().includes(query)
-      );
+      filtered = filtered.filter(faq => {
+        const localizedFAQ = getLocalizedFAQ(faq);
+        return localizedFAQ.question.toLowerCase().includes(query) ||
+               localizedFAQ.answer.toLowerCase().includes(query);
+      });
     }
 
     setFilteredFaqs(filtered);
@@ -387,27 +412,30 @@ export const FAQ = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredFaqs.map((faq) => (
-                  <details
-                    key={faq.id}
-                    className="group border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden hover:border-primary-300 transition-colors"
-                  >
-                    <summary className="cursor-pointer px-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 transition-colors flex items-center justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-slate-900 dark:text-white group-open:text-primary-600">
-                          {faq.question}
-                        </h3>
-                        <span className="text-xs text-slate-500 dark:text-slate-400 mt-1 inline-block">
-                          {formatCategory(faq.category)}
-                        </span>
+                {filteredFaqs.map((faq) => {
+                  const localizedFAQ = getLocalizedFAQ(faq);
+                  return (
+                    <details
+                      key={faq.id}
+                      className="group border-2 border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden hover:border-primary-300 transition-colors"
+                    >
+                      <summary className="cursor-pointer px-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 transition-colors flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-slate-900 dark:text-white group-open:text-primary-600">
+                            {localizedFAQ.question}
+                          </h3>
+                          <span className="text-xs text-slate-500 dark:text-slate-400 mt-1 inline-block">
+                            {formatCategory(faq.category)}
+                          </span>
+                        </div>
+                        <HelpCircle className="w-5 h-5 text-slate-400 group-open:text-primary-600 ml-4 flex-shrink-0" />
+                      </summary>
+                      <div className="px-6 py-4 bg-white dark:bg-slate-800">
+                        <p className="text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-line">{localizedFAQ.answer}</p>
                       </div>
-                      <HelpCircle className="w-5 h-5 text-slate-400 group-open:text-primary-600 ml-4 flex-shrink-0" />
-                    </summary>
-                    <div className="px-6 py-4 bg-white dark:bg-slate-800">
-                      <p className="text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-line">{faq.answer}</p>
-                    </div>
-                  </details>
-                ))}
+                    </details>
+                  );
+                })}
               </div>
             )}
           </div>
