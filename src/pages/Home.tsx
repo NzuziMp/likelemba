@@ -64,8 +64,15 @@ export const Home = () => {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
+                to="/member-login"
+                className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                <Key className="mr-2 w-5 h-5" />
+                Member Login
+              </Link>
+              <Link
                 to="/about"
-                className="inline-flex items-center px-8 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold rounded-lg hover:bg-slate-50 dark:bg-slate-800 transition-all border-2 border-slate-200 dark:border-slate-700"
+                className="inline-flex items-center px-8 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border-2 border-slate-200 dark:border-slate-700"
               >
                 {t('home.learnMore')}
               </Link>
