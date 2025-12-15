@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CircleDollarSign, Users, Shield, TrendingUp, ArrowRight, Eye } from 'lucide-react';
+import { CircleDollarSign, Users, Shield, TrendingUp, ArrowRight, Eye, Key } from 'lucide-react';
 import { PublicLayout } from '../components/Layout/PublicLayout';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
