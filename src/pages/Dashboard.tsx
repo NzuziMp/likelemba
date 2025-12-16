@@ -21,6 +21,7 @@ interface LikeLembaGroup {
   service_fee?: number;
   service_fee_paid?: boolean;
   service_fee_deadline?: string;
+  group_funds_balance?: number;
 }
 
 export const Dashboard = () => {
@@ -48,7 +49,7 @@ export const Dashboard = () => {
 
       const { data: groupsData, error } = await supabase
         .from('likelemba_groups')
-        .select('id, name, number_of_members, monthly_amount, status, start_date, payment_frequency, payment_method, service_fee, service_fee_paid, service_fee_deadline, created_at')
+        .select('id, name, number_of_members, monthly_amount, status, start_date, payment_frequency, payment_method, service_fee, service_fee_paid, service_fee_deadline, group_funds_balance, created_at')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -292,6 +293,10 @@ export const Dashboard = () => {
                         <Calendar className="w-4 h-4 mr-2" />
                         <span>Started {new Date(group.start_date).toLocaleDateString()}</span>
                       </div>
+                      <div className="flex items-center font-semibold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        <span>Balance: ${(group.group_funds_balance || 0).toFixed(2)} CAD</span>
+                      </div>
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -308,19 +313,25 @@ export const Dashboard = () => {
                       >
                         Payments
                       </Link>
-                      <ShareGroupLink groupId={group.id} groupName={group.name} />
+                      <Link
+                        to={`/payout-history?group=${group.id}`}
+                        className="block text-center px-3 py-2 bg-blue-100 text-blue-700 font-medium rounded-lg hover:bg-blue-200 transition-colors text-sm"
+                      >
+                        Payouts
+                      </Link>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="grid grid-cols-3 gap-2">
+                      <ShareGroupLink groupId={group.id} groupName={group.name} />
                       <button
                         onClick={() => setEditingGroup(group)}
-                        className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                        className="flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors text-sm"
                       >
                         <Edit2 className="w-4 h-4" />
                         <span>{t('dashboard.edit')}</span>
                       </button>
                       <button
                         onClick={() => setDeletingGroup(group)}
-                        className="flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
+                        className="flex items-center justify-center space-x-2 px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors text-sm"
                       >
                         <Trash2 className="w-4 h-4" />
                         <span>{t('dashboard.delete')}</span>
