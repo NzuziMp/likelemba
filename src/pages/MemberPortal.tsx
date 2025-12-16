@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { User, DollarSign, Calendar, LogOut, Mail, Phone, MapPin, CreditCard, Users, TrendingUp, CheckCircle2, XCircle, Clock } from 'lucide-react';
 import { PublicLayout } from '../components/Layout/PublicLayout';
 import { supabase } from '../lib/supabase';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface MemberData {
   id: string;
@@ -34,6 +35,7 @@ interface PaymentHistory {
 }
 
 export const MemberPortal = () => {
+  const { t } = useLanguage();
   const [member, setMember] = useState<MemberData | null>(null);
   const [group, setGroup] = useState<GroupData | null>(null);
   const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([]);
@@ -120,7 +122,7 @@ export const MemberPortal = () => {
         <div className="container mx-auto px-4 py-12">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-slate-600 dark:text-slate-300">Loading your portal...</p>
+            <p className="mt-4 text-slate-600 dark:text-slate-300">{t('memberPortal.loading')}</p>
           </div>
         </div>
       </PublicLayout>
@@ -140,16 +142,16 @@ export const MemberPortal = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-              Welcome, {member.full_name}
+              {t('memberPortal.welcome')}, {member.full_name}
             </h1>
-            <p className="text-slate-600 dark:text-slate-300">Member ID: {member.member_id}</p>
+            <p className="text-slate-600 dark:text-slate-300">{t('memberPortal.memberId')}: {member.member_id}</p>
           </div>
           <button
             onClick={handleLogout}
             className="flex items-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             <LogOut className="w-5 h-5" />
-            Logout
+            {t('memberPortal.logout')}
           </button>
         </div>
 
@@ -160,7 +162,7 @@ export const MemberPortal = () => {
                 <Users className="w-6 h-6 text-blue-600" />
               </div>
             </div>
-            <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Your Position</p>
+            <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">{t('memberPortal.yourPosition')}</p>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">#{member.receipt_order}</p>
           </div>
 
@@ -170,7 +172,7 @@ export const MemberPortal = () => {
                 <CheckCircle2 className="w-6 h-6 text-green-600" />
               </div>
             </div>
-            <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Payments Made</p>
+            <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">{t('memberPortal.paymentsMade')}</p>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">
               {paidPayments}/{totalPayments}
             </p>
@@ -182,7 +184,7 @@ export const MemberPortal = () => {
                 <TrendingUp className="w-6 h-6 text-purple-600" />
               </div>
             </div>
-            <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Current Cycle</p>
+            <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">{t('memberPortal.currentCycle')}</p>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">
               {group.current_cycle}
             </p>
@@ -193,41 +195,41 @@ export const MemberPortal = () => {
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <User className="w-5 h-5" />
-              Your Information
+              {t('memberPortal.yourInformation')}
             </h2>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <CreditCard className="w-5 h-5 text-slate-400 mt-0.5" />
                 <div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Member ID</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.memberId')}</p>
                   <p className="font-mono font-medium text-slate-900 dark:text-white">{member.member_id}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-slate-400 mt-0.5" />
                 <div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Email</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.email')}</p>
                   <p className="font-medium text-slate-900 dark:text-white">{member.email}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-slate-400 mt-0.5" />
                 <div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Phone</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.phone')}</p>
                   <p className="font-medium text-slate-900 dark:text-white">{member.phone}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-slate-400 mt-0.5" />
                 <div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Address</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.address')}</p>
                   <p className="font-medium text-slate-900 dark:text-white">{member.address}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <DollarSign className="w-5 h-5 text-slate-400 mt-0.5" />
                 <div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Contribution Amount</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.contributionAmount')}</p>
                   <p className="font-medium text-slate-900 dark:text-white">${member.membership_amount} CAD</p>
                 </div>
               </div>
@@ -237,32 +239,32 @@ export const MemberPortal = () => {
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <Users className="w-5 h-5" />
-              Group Details
+              {t('memberPortal.groupDetails')}
             </h2>
             <div className="space-y-3">
               <div>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Group Name</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.groupName')}</p>
                 <p className="font-medium text-slate-900 dark:text-white">{group.name}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Payment Method</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.paymentMethod')}</p>
                 <p className="font-medium text-slate-900 dark:text-white capitalize">{group.payment_method}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Frequency</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.frequency')}</p>
                 <p className="font-medium text-slate-900 dark:text-white capitalize">{group.frequency}</p>
               </div>
               {group.payment_method === 'interac' && (
                 <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-200 mb-2">Interac Payment Details</p>
+                  <p className="text-sm font-medium text-blue-900 dark:text-blue-200 mb-2">{t('memberPortal.interacDetails')}</p>
                   {group.interac_transfer_mode === 'email' && (
                     <p className="text-sm text-blue-800 dark:text-blue-300">
-                      Send to: {group.interac_account_email}
+                      {t('memberPortal.sendTo')}: {group.interac_account_email}
                     </p>
                   )}
                   {group.interac_transfer_mode === 'phone' && (
                     <p className="text-sm text-blue-800 dark:text-blue-300">
-                      Send to: {group.interac_account_phone}
+                      {t('memberPortal.sendTo')}: {group.interac_account_phone}
                     </p>
                   )}
                 </div>
@@ -274,40 +276,40 @@ export const MemberPortal = () => {
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
             <Calendar className="w-5 h-5" />
-            Payment History
+            {t('memberPortal.paymentHistory')}
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700">
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Cycle</th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">Date</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">{t('memberPortal.cycle')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">{t('memberPortal.status')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300">{t('memberPortal.date')}</th>
                 </tr>
               </thead>
               <tbody>
                 {paymentHistory.length === 0 ? (
                   <tr>
                     <td colSpan={3} className="text-center py-8 text-slate-500 dark:text-slate-400">
-                      No payment history yet
+                      {t('memberPortal.noHistory')}
                     </td>
                   </tr>
                 ) : (
                   paymentHistory.map((payment) => (
                     <tr key={payment.cycle_number} className="border-b border-slate-200 dark:border-slate-700">
                       <td className="py-3 px-4 text-slate-900 dark:text-white">
-                        Cycle {payment.cycle_number}
+                        {t('memberPortal.cycle')} {payment.cycle_number}
                       </td>
                       <td className="py-3 px-4">
                         {payment.is_paid ? (
                           <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full text-sm">
                             <CheckCircle2 className="w-4 h-4" />
-                            Paid
+                            {t('memberPortal.paid')}
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 rounded-full text-sm">
                             <XCircle className="w-4 h-4" />
-                            Not Paid
+                            {t('memberPortal.notPaid')}
                           </span>
                         )}
                       </td>

@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Key, LogIn, Info } from 'lucide-react';
 import { PublicLayout } from '../components/Layout/PublicLayout';
 import { supabase } from '../lib/supabase';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const MemberLogin = () => {
+  const { t } = useLanguage();
   const [memberId, setMemberId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -19,7 +21,7 @@ export const MemberLogin = () => {
       const formattedMemberId = memberId.trim().toUpperCase();
 
       if (!formattedMemberId.match(/^LK-[A-Z0-9]{6}$/)) {
-        setError('Invalid Member ID format. Must be: LK-XXXXXX (e.g., LK-A3B9F2)');
+        setError(t('memberLogin.invalidFormat'));
         setLoading(false);
         return;
       }
@@ -33,7 +35,7 @@ export const MemberLogin = () => {
       if (memberError) throw memberError;
 
       if (!member) {
-        setError('Member ID not found. Please check your ID and try again.');
+        setError(t('memberLogin.notFound'));
         setLoading(false);
         return;
       }
@@ -59,7 +61,7 @@ export const MemberLogin = () => {
       navigate('/member-portal');
     } catch (err: any) {
       console.error('Member login error:', err);
-      setError(err.message || 'An error occurred during login');
+      setError(err.message || t('memberLogin.error'));
       setLoading(false);
     }
   };
@@ -73,16 +75,16 @@ export const MemberLogin = () => {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Key className="w-8 h-8 text-blue-600" />
               </div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Member Login</h1>
-              <p className="text-slate-600 dark:text-slate-300">Enter your Member ID to access your group</p>
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t('memberLogin.title')}</h1>
+              <p className="text-slate-600 dark:text-slate-300">{t('memberLogin.subtitle')}</p>
             </div>
 
             <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
               <div className="flex items-start gap-3">
                 <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                 <div className="text-sm text-blue-800 dark:text-blue-200">
-                  <p className="font-medium mb-1">What is a Member ID?</p>
-                  <p>Your Member ID is a unique code (e.g., LK-A3B9F2) provided by your group organizer. Check your email or ask your organizer if you don't have it.</p>
+                  <p className="font-medium mb-1">{t('memberLogin.infoTitle')}</p>
+                  <p>{t('memberLogin.infoText')}</p>
                 </div>
               </div>
             </div>
@@ -96,7 +98,7 @@ export const MemberLogin = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="memberId" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
-                  Member ID
+                  {t('memberLogin.label')}
                 </label>
                 <input
                   type="text"
@@ -104,12 +106,12 @@ export const MemberLogin = () => {
                   value={memberId}
                   onChange={(e) => setMemberId(e.target.value)}
                   className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors uppercase font-mono text-lg"
-                  placeholder="LK-XXXXXX"
+                  placeholder={t('memberLogin.placeholder')}
                   required
                   maxLength={9}
                 />
                 <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                  Format: LK-XXXXXX (case-insensitive)
+                  {t('memberLogin.format')}
                 </p>
               </div>
 
@@ -119,11 +121,11 @@ export const MemberLogin = () => {
                 className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
-                  'Logging in...'
+                  t('memberLogin.loggingIn')
                 ) : (
                   <>
                     <LogIn className="w-5 h-5" />
-                    Login as Member
+                    {t('memberLogin.loginButton')}
                   </>
                 )}
               </button>
@@ -131,9 +133,9 @@ export const MemberLogin = () => {
 
             <div className="mt-6 text-center">
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                Are you a group organizer?{' '}
+                {t('memberLogin.organizerQuestion')}{' '}
                 <a href="/login" className="font-medium text-blue-600 hover:text-blue-700">
-                  Sign in here
+                  {t('memberLogin.signInHere')}
                 </a>
               </p>
             </div>

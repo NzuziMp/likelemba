@@ -68,7 +68,7 @@ export const Home = () => {
                 className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 <Key className="mr-2 w-5 h-5" />
-                Member Login
+                {t('memberLogin.title')}
               </Link>
               <Link
                 to="/about"
