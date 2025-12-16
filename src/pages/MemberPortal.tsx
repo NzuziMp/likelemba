@@ -7,33 +7,35 @@ import { supabase } from '../lib/supabase';
 interface MemberData {
   id: string;
   member_id: string;
-  name: string;
+  full_name: string;
   email: string;
   phone: string;
   address: string;
-  position: number;
-  amount: number;
+  receipt_order: number;
+  membership_amount: number;
   group_id: string;
-  likelemba_groups: {
-    name: string;
-    payment_method: string;
-    frequency: string;
-    current_cycle: number;
-    total_cycles: number;
-    interac_account_email?: string;
-    interac_account_phone?: string;
-    interac_transfer_mode?: string;
-  };
+}
+
+interface GroupData {
+  name: string;
+  payment_method: string;
+  frequency: string;
+  current_cycle: number;
+  total_cycles: number;
+  interac_account_email?: string;
+  interac_account_phone?: string;
+  interac_transfer_mode?: string;
 }
 
 interface PaymentHistory {
   cycle_number: number;
-  payment_status: string;
+  is_paid: boolean;
   payment_date: string | null;
 }
 
 export const MemberPortal = () => {
   const [member, setMember] = useState<MemberData | null>(null);
+  const [group, setGroup] = useState<GroupData | null>(null);
   const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -42,9 +44,10 @@ export const MemberPortal = () => {
     const loadMemberData = async () => {
       try {
         const sessionToken = localStorage.getItem('member_session_token');
-        const memberId = localStorage.getItem('member_id');
+        const memberIdCode = localStorage.getItem('member_id_code');
+        const memberUuid = localStorage.getItem('member_uuid');
 
-        if (!sessionToken || !memberId) {
+        if (!sessionToken || !memberIdCode || !memberUuid) {
           navigate('/member-login');
           return;
         }
@@ -53,31 +56,42 @@ export const MemberPortal = () => {
           .from('member_id_sessions')
           .select('*')
           .eq('session_token', sessionToken)
-          .eq('member_id', memberId)
+          .eq('member_id', memberIdCode)
           .gt('expires_at', new Date().toISOString())
           .maybeSingle();
 
         if (sessionError || !session) {
           localStorage.removeItem('member_session_token');
-          localStorage.removeItem('member_id');
+          localStorage.removeItem('member_id_code');
+          localStorage.removeItem('member_uuid');
           navigate('/member-login');
           return;
         }
 
         const { data: memberData, error: memberError } = await supabase
           .from('group_members')
-          .select('*, likelemba_groups(*)')
-          .eq('id', memberId)
+          .select('*')
+          .eq('id', memberUuid)
           .single();
 
         if (memberError) throw memberError;
 
         setMember(memberData);
 
+        const { data: groupData, error: groupError } = await supabase
+          .from('likelemba_groups')
+          .select('*')
+          .eq('id', memberData.group_id)
+          .single();
+
+        if (groupError) throw groupError;
+
+        setGroup(groupData);
+
         const { data: history, error: historyError } = await supabase
           .from('member_payment_history')
-          .select('cycle_number, payment_status, payment_date')
-          .eq('member_id', memberId)
+          .select('cycle_number, is_paid, payment_date')
+          .eq('member_id', memberUuid)
           .order('cycle_number', { ascending: true });
 
         if (historyError) throw historyError;
@@ -95,7 +109,8 @@ export const MemberPortal = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('member_session_token');
-    localStorage.removeItem('member_id');
+    localStorage.removeItem('member_id_code');
+    localStorage.removeItem('member_uuid');
     navigate('/');
   };
 
@@ -112,12 +127,12 @@ export const MemberPortal = () => {
     );
   }
 
-  if (!member) {
+  if (!member || !group) {
     return null;
   }
 
-  const paidPayments = paymentHistory.filter(p => p.payment_status === 'paid').length;
-  const totalPayments = member.likelemba_groups.total_cycles;
+  const paidPayments = paymentHistory.filter(p => p.is_paid).length;
+  const totalPayments = group.total_cycles;
 
   return (
     <PublicLayout>
@@ -125,7 +140,7 @@ export const MemberPortal = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-              Welcome, {member.name}
+              Welcome, {member.full_name}
             </h1>
             <p className="text-slate-600 dark:text-slate-300">Member ID: {member.member_id}</p>
           </div>
@@ -146,7 +161,7 @@ export const MemberPortal = () => {
               </div>
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Your Position</p>
-            <p className="text-3xl font-bold text-slate-900 dark:text-white">#{member.position}</p>
+            <p className="text-3xl font-bold text-slate-900 dark:text-white">#{member.receipt_order}</p>
           </div>
 
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6">
@@ -169,7 +184,7 @@ export const MemberPortal = () => {
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-sm mb-1">Current Cycle</p>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">
-              {member.likelemba_groups.current_cycle}
+              {group.current_cycle}
             </p>
           </div>
         </div>
@@ -213,7 +228,7 @@ export const MemberPortal = () => {
                 <DollarSign className="w-5 h-5 text-slate-400 mt-0.5" />
                 <div>
                   <p className="text-sm text-slate-500 dark:text-slate-400">Contribution Amount</p>
-                  <p className="font-medium text-slate-900 dark:text-white">${member.amount} CAD</p>
+                  <p className="font-medium text-slate-900 dark:text-white">${member.membership_amount} CAD</p>
                 </div>
               </div>
             </div>
@@ -227,27 +242,27 @@ export const MemberPortal = () => {
             <div className="space-y-3">
               <div>
                 <p className="text-sm text-slate-500 dark:text-slate-400">Group Name</p>
-                <p className="font-medium text-slate-900 dark:text-white">{member.likelemba_groups.name}</p>
+                <p className="font-medium text-slate-900 dark:text-white">{group.name}</p>
               </div>
               <div>
                 <p className="text-sm text-slate-500 dark:text-slate-400">Payment Method</p>
-                <p className="font-medium text-slate-900 dark:text-white capitalize">{member.likelemba_groups.payment_method}</p>
+                <p className="font-medium text-slate-900 dark:text-white capitalize">{group.payment_method}</p>
               </div>
               <div>
                 <p className="text-sm text-slate-500 dark:text-slate-400">Frequency</p>
-                <p className="font-medium text-slate-900 dark:text-white capitalize">{member.likelemba_groups.frequency}</p>
+                <p className="font-medium text-slate-900 dark:text-white capitalize">{group.frequency}</p>
               </div>
-              {member.likelemba_groups.payment_method === 'interac' && (
+              {group.payment_method === 'interac' && (
                 <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                   <p className="text-sm font-medium text-blue-900 dark:text-blue-200 mb-2">Interac Payment Details</p>
-                  {member.likelemba_groups.interac_transfer_mode === 'email' && (
+                  {group.interac_transfer_mode === 'email' && (
                     <p className="text-sm text-blue-800 dark:text-blue-300">
-                      Send to: {member.likelemba_groups.interac_account_email}
+                      Send to: {group.interac_account_email}
                     </p>
                   )}
-                  {member.likelemba_groups.interac_transfer_mode === 'phone' && (
+                  {group.interac_transfer_mode === 'phone' && (
                     <p className="text-sm text-blue-800 dark:text-blue-300">
-                      Send to: {member.likelemba_groups.interac_account_phone}
+                      Send to: {group.interac_account_phone}
                     </p>
                   )}
                 </div>
@@ -284,15 +299,10 @@ export const MemberPortal = () => {
                         Cycle {payment.cycle_number}
                       </td>
                       <td className="py-3 px-4">
-                        {payment.payment_status === 'paid' ? (
+                        {payment.is_paid ? (
                           <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full text-sm">
                             <CheckCircle2 className="w-4 h-4" />
                             Paid
-                          </span>
-                        ) : payment.payment_status === 'pending' ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 rounded-full text-sm">
-                            <Clock className="w-4 h-4" />
-                            Pending
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 px-2 py-1 bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 rounded-full text-sm">

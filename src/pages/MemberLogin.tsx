@@ -26,7 +26,7 @@ export const MemberLogin = () => {
 
       const { data: member, error: memberError } = await supabase
         .from('group_members')
-        .select('*, likelemba_groups(*)')
+        .select('*')
         .eq('member_id', formattedMemberId)
         .maybeSingle();
 
@@ -41,7 +41,7 @@ export const MemberLogin = () => {
       const { data: session, error: sessionError } = await supabase
         .from('member_id_sessions')
         .insert({
-          member_id: member.id,
+          member_id: formattedMemberId,
           expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
         })
         .select()
@@ -50,7 +50,8 @@ export const MemberLogin = () => {
       if (sessionError) throw sessionError;
 
       localStorage.setItem('member_session_token', session.session_token);
-      localStorage.setItem('member_id', member.id);
+      localStorage.setItem('member_id_code', formattedMemberId);
+      localStorage.setItem('member_uuid', member.id);
 
       navigate('/member-portal');
     } catch (err: any) {
