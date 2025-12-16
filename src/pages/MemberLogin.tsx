@@ -38,10 +38,13 @@ export const MemberLogin = () => {
         return;
       }
 
+      const sessionToken = crypto.randomUUID();
+
       const { data: session, error: sessionError } = await supabase
         .from('member_id_sessions')
         .insert({
           member_id: formattedMemberId,
+          session_token: sessionToken,
           expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
         })
         .select()
