@@ -22,6 +22,9 @@ export const LikeLemba = () => {
     paymentMethod: 'interac' as 'interac' | 'cash',
     startDate: '',
     endDate: '',
+    interacAccountEmail: '',
+    interacAccountPhone: '',
+    interacTransferMode: 'autodeposit' as 'autodeposit' | 'request',
   });
 
   const calculateEndDate = (startDate: string, numberOfMembers: number, frequency: 'daily' | 'weekly' | 'monthly'): string => {
@@ -88,22 +91,33 @@ export const LikeLemba = () => {
       const serviceFee = numberOfMembers * 2;
       const totalPerCycle = monthlyAmount * numberOfMembers;
 
+      const groupInsertData: any = {
+        name: formData.name,
+        creator_id: user.id,
+        number_of_members: numberOfMembers,
+        monthly_amount: monthlyAmount,
+        payment_frequency: formData.paymentFrequency,
+        payment_method: formData.paymentMethod,
+        start_date: formData.startDate,
+        end_date: formData.endDate,
+        total_per_cycle: totalPerCycle,
+        service_fee: serviceFee,
+        service_fee_paid: false,
+        status: 'active',
+      };
+
+      if (formData.paymentMethod === 'interac') {
+        if (!formData.interacAccountEmail && !formData.interacAccountPhone) {
+          throw new Error('Please provide either an Interac email or phone number');
+        }
+        groupInsertData.interac_account_email = formData.interacAccountEmail || null;
+        groupInsertData.interac_account_phone = formData.interacAccountPhone || null;
+        groupInsertData.interac_transfer_mode = formData.interacTransferMode;
+      }
+
       const { data: groupData, error: groupError } = await supabase
         .from('likelemba_groups')
-        .insert({
-          name: formData.name,
-          creator_id: user.id,
-          number_of_members: numberOfMembers,
-          monthly_amount: monthlyAmount,
-          payment_frequency: formData.paymentFrequency,
-          payment_method: formData.paymentMethod,
-          start_date: formData.startDate,
-          end_date: formData.endDate,
-          total_per_cycle: totalPerCycle,
-          service_fee: serviceFee,
-          service_fee_paid: false,
-          status: 'active',
-        })
+        .insert(groupInsertData)
         .select()
         .single();
 
@@ -244,6 +258,70 @@ export const LikeLemba = () => {
                 </select>
               </div>
             </div>
+
+            {formData.paymentMethod === 'interac' && (
+              <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-xl p-6">
+                <h3 className="font-bold text-blue-900 dark:text-blue-100 mb-4 flex items-center">
+                  <CreditCard className="w-5 h-5 mr-2" />
+                  Interac Configuration
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="interacTransferMode" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
+                      Transfer Mode
+                    </label>
+                    <select
+                      id="interacTransferMode"
+                      name="interacTransferMode"
+                      value={formData.interacTransferMode}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800"
+                    >
+                      <option value="autodeposit">Autodeposit (Recommended)</option>
+                      <option value="request">Request Money</option>
+                    </select>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Autodeposit: Funds automatically deposited. Request: Recipient must accept transfer.
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="interacAccountEmail" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
+                        Interac Email
+                      </label>
+                      <input
+                        type="email"
+                        id="interacAccountEmail"
+                        name="interacAccountEmail"
+                        value={formData.interacAccountEmail}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800"
+                        placeholder="email@example.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="interacAccountPhone" className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
+                        Interac Phone
+                      </label>
+                      <input
+                        type="tel"
+                        id="interacAccountPhone"
+                        name="interacAccountPhone"
+                        value={formData.interacAccountPhone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-800"
+                        placeholder="+1 (555) 123-4567"
+                      />
+                    </div>
+                  </div>
+                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                    Provide at least one: email or phone number registered with Interac
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
