@@ -11,6 +11,7 @@ import { parseImportFile, downloadTemplate } from '../utils/importUtils';
 
 interface GroupMember {
   id: string;
+  member_id: string;
   full_name: string;
   email: string;
   phone: string;
@@ -812,9 +813,16 @@ export const Members = () => {
                           <CheckCircle className="w-5 h-5 text-green-600" />
                         )}
                       </div>
-                      <span className="text-sm text-green-600 font-medium">
-                        Position #{member.receipt_order}
-                      </span>
+                      <div className="flex flex-col gap-1">
+                        {member.member_id && (
+                          <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                            ID: {member.member_id}
+                          </span>
+                        )}
+                        <span className="text-sm text-green-600 font-medium">
+                          Position #{member.receipt_order}
+                        </span>
+                      </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <button
