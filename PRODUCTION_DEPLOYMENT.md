@@ -2,10 +2,12 @@
 
 ## Recent Changes
 
-### 1. Dark Mode Default
+### 1. Dark Mode Default (FIXED)
 - Dark mode is now the default theme on page load
+- Added inline script in index.html that applies dark mode IMMEDIATELY before React loads
+- Prevents any flash of light mode (FOUC - Flash of Unstyled Content)
 - Users can still toggle to light mode using the theme toggle button
-- Theme preference is saved in localStorage
+- Theme preference is saved in localStorage and persists across sessions
 
 ### 2. Logo Fixed
 - Changed logo from `fichier_7 copy copy copy.png` to `Logo-1.jpg`
