@@ -22,6 +22,7 @@ import { PaymentTracking } from './pages/PaymentTracking';
 import PayoutHistory from './pages/PayoutHistory';
 import { MemberLogin } from './pages/MemberLogin';
 import { MemberPortal } from './pages/MemberPortal';
+import { TestAuth } from './pages/TestAuth';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserManagement from './pages/admin/UserManagement';
 import GroupManagement from './pages/admin/GroupManagement';
@@ -45,6 +46,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/member-login" element={<MemberLogin />} />
           <Route path="/member-portal" element={<MemberPortal />} />
+          <Route path="/test-auth" element={<TestAuth />} />
           <Route path="/shared/:token" element={<SharedGroup />} />
 
           <Route
