@@ -45,6 +45,10 @@ export const Dashboard = () => {
 
   const fetchGroups = async () => {
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log('Current session:', session ? 'Authenticated' : 'Not authenticated');
+      console.log('User ID:', session?.user?.id);
+
       await supabase.rpc('check_group_end_date');
 
       const { data: groupsData, error } = await supabase
@@ -52,8 +56,12 @@ export const Dashboard = () => {
         .select('id, name, number_of_members, monthly_amount, status, start_date, payment_frequency, payment_method, service_fee, service_fee_paid, service_fee_deadline, group_funds_balance, created_at')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching groups:', error);
+        throw error;
+      }
 
+      console.log('Groups fetched:', groupsData?.length || 0);
       setGroups(groupsData || []);
 
       const activeGroups = groupsData?.filter(g => g.status === 'active').length || 0;
@@ -216,15 +224,22 @@ export const Dashboard = () => {
           ) : groups.length === 0 ? (
             <div className="text-center py-12">
               <DollarSign className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">No Groups Yet</h3>
-              <p className="text-slate-600 dark:text-slate-300 mb-6">Create your first Likelemba group to get started</p>
-              <Link
-                to="/likelemba"
-                className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Create Your First Group
-              </Link>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">No Groups Found</h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-2">
+                {profile ? 'Create your first Likelemba group to get started' : 'Please make sure you are logged in'}
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
+                Check browser console (F12) for authentication details
+              </p>
+              {profile && (
+                <Link
+                  to="/likelemba"
+                  className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  <Plus className="w-5 h-5 mr-2" />
+                  Create Your First Group
+                </Link>
+              )}
             </div>
           ) : (
             <>

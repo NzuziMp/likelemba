@@ -19,6 +19,21 @@
 - Member ID appears below the member name in a small monospaced font
 - Format: "ID: XXXXX"
 
+### 4. Data Troubleshooting & Diagnostics (NEW)
+- Added comprehensive logging to help diagnose data visibility issues
+- Enhanced error messages in Dashboard when no groups are found
+- Added authentication status indicators
+- Created DATA_TROUBLESHOOTING.md guide
+
+**What was added:**
+- Console logging in Supabase client initialization
+- Console logging in AuthContext for session tracking
+- Console logging in Dashboard for data fetching
+- Better empty state messages that indicate auth status
+- Troubleshooting guide for common data issues
+
+**Important:** See DATA_TROUBLESHOOTING.md if you can't see your data after deployment
+
 ## Production Files
 
 The production build is available in: **likelemba-production-ready.tar.gz**

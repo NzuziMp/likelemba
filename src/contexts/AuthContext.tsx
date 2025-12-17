@@ -45,17 +45,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('[AuthContext] Initial session check:', session ? 'Authenticated' : 'Not authenticated');
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
+        console.log('[AuthContext] Fetching profile for user:', session.user.id);
         fetchProfile(session.user.id);
       } else {
+        console.log('[AuthContext] No active session found');
         setLoading(false);
       }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       (async () => {
+        console.log('[AuthContext] Auth state changed:', _event, session ? 'Authenticated' : 'Not authenticated');
         setSession(session);
         setUser(session?.user ?? null);
         if (session?.user) {
