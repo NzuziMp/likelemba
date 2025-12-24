@@ -46,22 +46,32 @@ export const Dashboard = () => {
   const fetchGroups = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
+      console.log('=== DASHBOARD DIAGNOSTICS ===');
       console.log('Current session:', session ? 'Authenticated' : 'Not authenticated');
       console.log('User ID:', session?.user?.id);
+      console.log('User email:', session?.user?.email);
+      console.log('Profile loaded:', !!profile);
+      console.log('Profile ID:', profile?.id);
 
       await supabase.rpc('check_group_end_date');
 
       const { data: groupsData, error } = await supabase
         .from('likelemba_groups')
-        .select('id, name, number_of_members, monthly_amount, status, start_date, payment_frequency, payment_method, service_fee, service_fee_paid, service_fee_deadline, group_funds_balance, created_at')
+        .select('id, name, number_of_members, monthly_amount, status, start_date, payment_frequency, payment_method, service_fee, service_fee_paid, service_fee_deadline, group_funds_balance, created_at, creator_id')
         .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching groups:', error);
+        console.error('Error details:', error.message, error.details, error.hint);
         throw error;
       }
 
       console.log('Groups fetched:', groupsData?.length || 0);
+      if (groupsData && groupsData.length > 0) {
+        console.log('Sample group creator_id:', groupsData[0].creator_id);
+        console.log('Does it match your user ID?', groupsData[0].creator_id === session?.user?.id);
+      }
+      console.log('============================');
       setGroups(groupsData || []);
 
       const activeGroups = groupsData?.filter(g => g.status === 'active').length || 0;
@@ -226,19 +236,36 @@ export const Dashboard = () => {
               <DollarSign className="w-16 h-16 text-slate-300 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">No Groups Found</h3>
               <p className="text-slate-600 dark:text-slate-300 mb-2">
-                {profile ? 'Create your first Likelemba group to get started' : 'Please make sure you are logged in'}
+                {profile ? 'You can only see groups you created. Create your first group to get started.' : 'Please make sure you are logged in'}
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
-                Check browser console (F12) for authentication details
-              </p>
+              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6 max-w-2xl mx-auto text-left">
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 text-sm">Why can't I see any groups?</h4>
+                <ul className="text-xs text-blue-800 dark:text-blue-200 space-y-1 list-disc list-inside">
+                  <li>The database has Row Level Security (RLS) enabled</li>
+                  <li>You can ONLY see groups where YOU are the creator</li>
+                  <li>Check the browser console (press F12) for detailed diagnostics</li>
+                  <li>Your User ID must match the group's creator_id</li>
+                  <li>Try visiting /test-auth to see authentication details</li>
+                </ul>
+              </div>
               {profile && (
-                <Link
-                  to="/likelemba"
-                  className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  <Plus className="w-5 h-5 mr-2" />
-                  Create Your First Group
-                </Link>
+                <>
+                  <Link
+                    to="/likelemba"
+                    className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors mb-4"
+                  >
+                    <Plus className="w-5 h-5 mr-2" />
+                    Create Your First Group
+                  </Link>
+                  <div className="mt-4">
+                    <Link
+                      to="/test-auth"
+                      className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    >
+                      View Diagnostic Information
+                    </Link>
+                  </div>
+                </>
               )}
             </div>
           ) : (
