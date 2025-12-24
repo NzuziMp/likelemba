@@ -149,6 +149,15 @@ const translations: Record<Language, Record<string, string>> = {
     'resetPassword.successMessage': 'Password updated successfully!',
     'resetPassword.redirecting': 'Redirecting to login...',
 
+    'confirmEmail.verifying': 'Verifying your email...',
+    'confirmEmail.pleaseWait': 'Please wait while we confirm your email address',
+    'confirmEmail.success': 'Email Confirmed!',
+    'confirmEmail.successMessage': 'Your email has been successfully confirmed. You can now log in to your account.',
+    'confirmEmail.redirecting': 'Redirecting to login page...',
+    'confirmEmail.error': 'Confirmation Failed',
+    'confirmEmail.errorMessage': 'There was an error confirming your email address.',
+    'confirmEmail.goToLogin': 'Go to Login',
+
     'dashboard.welcome': 'Welcome',
     'dashboard.totalGroups': 'Total Groups',
     'dashboard.activeGroups': 'Active Groups',
@@ -633,6 +642,15 @@ const translations: Record<Language, Record<string, string>> = {
     'resetPassword.successMessage': 'Mot de passe mis à jour avec succès !',
     'resetPassword.redirecting': 'Redirection vers la connexion...',
 
+    'confirmEmail.verifying': 'Vérification de votre email...',
+    'confirmEmail.pleaseWait': 'Veuillez patienter pendant que nous confirmons votre adresse email',
+    'confirmEmail.success': 'Email Confirmé !',
+    'confirmEmail.successMessage': 'Votre email a été confirmé avec succès. Vous pouvez maintenant vous connecter à votre compte.',
+    'confirmEmail.redirecting': 'Redirection vers la page de connexion...',
+    'confirmEmail.error': 'Échec de la Confirmation',
+    'confirmEmail.errorMessage': 'Une erreur s\'est produite lors de la confirmation de votre adresse email.',
+    'confirmEmail.goToLogin': 'Aller à la Connexion',
+
     'dashboard.welcome': 'Bienvenue',
     'dashboard.totalGroups': 'Groupes totaux',
     'dashboard.activeGroups': 'Groupes actifs',
@@ -1027,6 +1045,15 @@ const translations: Record<Language, Record<string, string>> = {
     'resetPassword.successMessage': 'تم تحديث كلمة المرور بنجاح!',
     'resetPassword.redirecting': 'إعادة التوجيه إلى تسجيل الدخول...',
 
+    'confirmEmail.verifying': 'جارٍ التحقق من بريدك الإلكتروني...',
+    'confirmEmail.pleaseWait': 'يرجى الانتظار بينما نقوم بتأكيد عنوان بريدك الإلكتروني',
+    'confirmEmail.success': 'تم تأكيد البريد الإلكتروني!',
+    'confirmEmail.successMessage': 'تم تأكيد بريدك الإلكتروني بنجاح. يمكنك الآن تسجيل الدخول إلى حسابك.',
+    'confirmEmail.redirecting': 'إعادة التوجيه إلى صفحة تسجيل الدخول...',
+    'confirmEmail.error': 'فشل التأكيد',
+    'confirmEmail.errorMessage': 'حدث خطأ أثناء تأكيد عنوان بريدك الإلكتروني.',
+    'confirmEmail.goToLogin': 'الانتقال إلى تسجيل الدخول',
+
     'dashboard.welcome': 'مرحبًا',
     'dashboard.totalGroups': 'إجمالي المجموعات',
     'dashboard.activeGroups': 'المجموعات النشطة',
@@ -1420,6 +1447,15 @@ const translations: Record<Language, Record<string, string>> = {
     'resetPassword.updating': 'Atualizando...',
     'resetPassword.successMessage': 'Senha atualizada com sucesso!',
     'resetPassword.redirecting': 'Redirecionando para o login...',
+
+    'confirmEmail.verifying': 'Verificando seu email...',
+    'confirmEmail.pleaseWait': 'Por favor, aguarde enquanto confirmamos seu endereço de email',
+    'confirmEmail.success': 'Email Confirmado!',
+    'confirmEmail.successMessage': 'Seu email foi confirmado com sucesso. Agora você pode fazer login na sua conta.',
+    'confirmEmail.redirecting': 'Redirecionando para a página de login...',
+    'confirmEmail.error': 'Falha na Confirmação',
+    'confirmEmail.errorMessage': 'Houve um erro ao confirmar seu endereço de email.',
+    'confirmEmail.goToLogin': 'Ir para Login',
 
     'dashboard.welcome': 'Bem-vindo',
     'dashboard.totalGroups': 'Grupos Totais',

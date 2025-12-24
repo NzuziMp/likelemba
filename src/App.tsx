@@ -14,6 +14,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { ForgotPassword } from './pages/ForgotPassword';
 import { ResetPassword } from './pages/ResetPassword';
+import { ConfirmEmail } from './pages/ConfirmEmail';
 import { Dashboard } from './pages/Dashboard';
 import { LikeLemba } from './pages/Likelemba';
 import { Members } from './pages/Members';
@@ -46,6 +47,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/member-login" element={<MemberLogin />} />
           <Route path="/member-portal" element={<MemberPortal />} />
           <Route path="/test-auth" element={<TestAuth />} />

@@ -122,6 +122,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/confirm-email`,
+          data: {
+            full_name: fullName,
+          },
+        },
       });
 
       if (error) throw error;
@@ -151,7 +157,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         password,
       });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message.includes('Email not confirmed')) {
+          throw new Error('Please confirm your email address before logging in. Check your inbox for the confirmation email.');
+        }
+        throw error;
+      }
       return { error: null };
     } catch (error) {
       return { error: error as Error };
