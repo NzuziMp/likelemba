@@ -24,6 +24,7 @@ interface AuthContextType {
   signInWithFacebook: () => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: Error | null }>;
+  updatePassword: (newPassword: string) => Promise<{ error: Error | null }>;
   updateProfile: (data: Partial<Profile>) => Promise<{ error: Error | null }>;
 }
 
@@ -209,6 +210,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updatePassword = async (newPassword: string) => {
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
+      if (error) throw error;
+      return { error: null };
+    } catch (error) {
+      return { error: error as Error };
+    }
+  };
+
   const updateProfile = async (data: Partial<Profile>) => {
     try {
       if (!user) throw new Error('No user logged in');
@@ -239,6 +253,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     signInWithFacebook,
     signOut,
     resetPassword,
+    updatePassword,
     updateProfile,
   };
 
