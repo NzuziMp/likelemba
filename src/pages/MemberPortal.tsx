@@ -20,9 +20,9 @@ interface MemberData {
 interface GroupData {
   name: string;
   payment_method: string;
-  frequency: string;
+  payment_frequency: string;
   current_cycle: number;
-  total_cycles: number;
+  number_of_members: number;
   interac_account_email?: string;
   interac_account_phone?: string;
   interac_transfer_mode?: string;
@@ -134,7 +134,7 @@ export const MemberPortal = () => {
   }
 
   const paidPayments = paymentHistory.filter(p => p.is_paid).length;
-  const totalPayments = group.total_cycles;
+  const totalPayments = group.current_cycle || 1;
 
   return (
     <PublicLayout>
@@ -252,7 +252,7 @@ export const MemberPortal = () => {
               </div>
               <div>
                 <p className="text-sm text-slate-500 dark:text-slate-400">{t('memberPortal.frequency')}</p>
-                <p className="font-medium text-slate-900 dark:text-white capitalize">{group.frequency}</p>
+                <p className="font-medium text-slate-900 dark:text-white capitalize">{group.payment_frequency}</p>
               </div>
               {group.payment_method === 'interac' && (
                 <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">

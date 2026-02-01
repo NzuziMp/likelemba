@@ -396,7 +396,7 @@ export const PaymentTracking = () => {
               <div className="grid grid-cols-3 gap-2 mb-4">
                 <Link
                   to={`/members?group=${group.id}`}
-                  className="flex items-center justify-center space-x-2 px-4 py-2 bg-slate-100 text-slate-700 dark:text-slate-200 font-medium rounded-lg hover:bg-slate-200 transition-colors text-sm"
+                  className="flex items-center justify-center space-x-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors text-sm"
                 >
                   <Users className="w-4 h-4" />
                   <span>Members</span>
