@@ -34,6 +34,7 @@ interface LikeLembaGroup {
   start_date: string;
   end_date: string;
   current_cycle: number;
+  current_beneficiary_id: string | null;
   total_per_cycle: number | null;
   service_fee: number | null;
   status: 'active' | 'paused' | 'ended';
@@ -106,7 +107,7 @@ export const Members = () => {
     try {
       const { data, error} = await supabase
         .from('likelemba_groups')
-        .select('id, name, number_of_members, monthly_amount, payment_frequency, payment_method, start_date, end_date, current_cycle, total_per_cycle, service_fee, status, creator_id, paused_at, resumed_at, days_paused')
+        .select('id, name, number_of_members, monthly_amount, payment_frequency, payment_method, start_date, end_date, current_cycle, current_beneficiary_id, total_per_cycle, service_fee, status, creator_id, paused_at, resumed_at, days_paused')
         .eq('id', groupId)
         .single();
 
@@ -469,13 +470,16 @@ export const Members = () => {
   const nextPaymentDate = getNextPaymentDate();
 
   const getNextPaymentMember = () => {
-    if (!members.length) return null;
+    if (!members.length || !group) return null;
 
-    const unpaidMembers = members
-      .filter(m => !m.has_paid_current_cycle)
-      .sort((a, b) => a.receipt_order - b.receipt_order);
+    // If we have a current_beneficiary_id, use it to find the member
+    if (group.current_beneficiary_id) {
+      return members.find(m => m.id === group.current_beneficiary_id) || null;
+    }
 
-    return unpaidMembers.length > 0 ? unpaidMembers[0] : null;
+    // Otherwise, find the member whose receipt_order matches the current_cycle
+    const currentCycle = group.current_cycle || 1;
+    return members.find(m => m.receipt_order === currentCycle) || null;
   };
 
   const nextPaymentMember = getNextPaymentMember();
